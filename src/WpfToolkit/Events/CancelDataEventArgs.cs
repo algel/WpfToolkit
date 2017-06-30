@@ -1,4 +1,4 @@
-﻿namespace WpfToolkit.Events
+﻿namespace WpfToolset.Events
 {
     public class CancelDataEventArgs : CancelDataEventArgs<object>
     {

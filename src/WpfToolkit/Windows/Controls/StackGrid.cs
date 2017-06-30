@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using WpfToolkit.Linq;
+using WpfToolset.Linq;
 
-namespace WpfToolkit.Windows.Controls
+namespace WpfToolset.Windows.Controls
 {
     /// <summary>
     /// A grid-like control that allows a developer to specify the rows and columns, but gives the freedom

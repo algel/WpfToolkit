@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 
-namespace WpfToolkit.Windows
+namespace WpfToolset.Windows
 {
     /// <summary>
     /// The designer helper.

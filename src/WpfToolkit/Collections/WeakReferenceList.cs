@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace WpfToolkit.Collections
+namespace WpfToolset.Collections
 {
     internal class WeakReferenceList<T> : IList<T>
     {

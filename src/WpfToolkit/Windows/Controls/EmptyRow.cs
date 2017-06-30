@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace WpfToolkit.Windows.Controls
+namespace WpfToolset.Windows.Controls
 {
     /// <summary>
     /// Control to fill up a row in the <see cref="StackGrid"/> control. This control will use an entire row to fill up.

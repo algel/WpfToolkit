@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace WpfToolkit.Collections
+namespace WpfToolset.Collections
 {
     /// <summary>
     /// Represents event data for CollectionChanging event.

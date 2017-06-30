@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using WpfToolkit.Linq;
+using WpfToolset.Linq;
 
-namespace WpfToolkit.Windows.Controls
+namespace WpfToolset.Windows.Controls
 {
     public class GridEx : Grid
     {

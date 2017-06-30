@@ -11,7 +11,7 @@ using System.Windows;
 using System.Windows.Data;
 using JetBrains.Annotations;
 
-namespace WpfToolkit.Windows.Data
+namespace WpfToolset.Windows.Data
 {
     public class CollectionView<T> : IEnumerable<T>, ICollectionView, INotifyPropertyChanged
     {

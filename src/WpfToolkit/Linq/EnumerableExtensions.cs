@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace WpfToolkit.Linq
+namespace WpfToolset.Linq
 {
     static class EnumerableExtensions
     {

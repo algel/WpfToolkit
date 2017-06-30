@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using WpfToolkit.Events;
+using WpfToolset.Events;
 
-namespace WpfToolkit.Windows.Input
+namespace WpfToolset.Windows.Input
 {
     public class ViewModelCommand : IViewModelCommand
     {

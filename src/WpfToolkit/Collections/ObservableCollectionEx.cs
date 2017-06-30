@@ -5,9 +5,9 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using WpfToolkit.Linq;
+using WpfToolset.Linq;
 
-namespace WpfToolkit.Collections
+namespace WpfToolset.Collections
 {
     /// <summary>
     /// Represents an <see cref="ObservableCollection{T}"/> that has ability to suspend

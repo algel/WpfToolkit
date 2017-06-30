@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using WpfToolkit.Events;
+using WpfToolset.Events;
 
-namespace WpfToolkit.Windows.Input
+namespace WpfToolset.Windows.Input
 {
     /// <summary>
     /// Контейнер и фабрика команд

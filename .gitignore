@@ -3,3 +3,7 @@
 ################################################################################
 
 /src/.vs
+/src/packages
+/src/WpfToolkit/bin/Debug
+
+/src/WpfToolkit/obj/Debug

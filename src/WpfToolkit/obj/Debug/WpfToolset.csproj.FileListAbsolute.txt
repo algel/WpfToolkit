@@ -1,0 +1,7 @@
+D:\Src\GitHub\WpfToolkit\src\WpfToolkit\bin\Debug\WpfToolset.dll
+D:\Src\GitHub\WpfToolkit\src\WpfToolkit\bin\Debug\WpfToolset.pdb
+D:\Src\GitHub\WpfToolkit\src\WpfToolkit\bin\Debug\JetBrains.Annotations.dll
+D:\Src\GitHub\WpfToolkit\src\WpfToolkit\bin\Debug\JetBrains.Annotations.xml
+D:\Src\GitHub\WpfToolkit\src\WpfToolkit\obj\Debug\WpfToolset.csprojResolveAssemblyReference.cache
+D:\Src\GitHub\WpfToolkit\src\WpfToolkit\obj\Debug\WpfToolset.dll
+D:\Src\GitHub\WpfToolkit\src\WpfToolkit\obj\Debug\WpfToolset.pdb

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WpfToolkit.Events
+namespace WpfToolset.Events
 {
     /// <summary>
     /// Generic arguments class to pass to event handlers that need to receive data.

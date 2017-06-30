@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfToolkit", "WpfToolkit\WpfToolkit.csproj", "{CD733CB1-97BF-40D4-BC3F-638C7E190857}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfToolset", "WpfToolkit\WpfToolset.csproj", "{CD733CB1-97BF-40D4-BC3F-638C7E190857}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
