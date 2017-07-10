@@ -77,6 +77,7 @@
     <Compile Include="Windows\Input\ViewModelCommand.cs" />
     <Compile Include="Windows\Input\ViewModelCommandManager.cs" />
     <Compile Include="Windows\Markup\MergedStylesExtension.cs" />
+    <Compile Include="Windows\Markup\PrimitiveTypeExtension.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
