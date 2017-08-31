@@ -42,21 +42,18 @@ namespace WpfToolset.Windows.Data
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
 
-            var cvf = source as ICollectionViewFactory;
-            if (cvf != null)
+            if (source is ICollectionViewFactory cvf)
                 _collectionView = cvf.CreateView();
 
             if (_collectionView == null)
             {
-                var list = source as IBindingList;
-                if (list != null)
+                if (source is IBindingList list)
                     _collectionView = new BindingListCollectionView(list);
             }
 
             if (_collectionView == null)
             {
-                var list = source as IList;
-                if (list != null)
+                if (source is IList list)
                     _collectionView = new ListCollectionView(list);
             }
 
@@ -89,9 +86,16 @@ namespace WpfToolset.Windows.Data
 
         public void Refresh()
         {
-            using (_collectionView.DeferRefresh())
+            if (_enumerableWrapper != null)
             {
-                _enumerableWrapper?.RefreshList();
+                using (_collectionView.DeferRefresh())
+                {
+                    _enumerableWrapper?.RefreshList();
+                }
+            }
+            else
+            {
+                _collectionView.Refresh();
             }
         }
 
@@ -136,8 +140,8 @@ namespace WpfToolset.Windows.Data
 
         public CultureInfo Culture
         {
-            get { return _collectionView.Culture; }
-            set { _collectionView.Culture = value; }
+            get => _collectionView.Culture;
+            set => _collectionView.Culture = value;
         }
 
         public bool CanFilter => _collectionView.CanFilter;
@@ -162,7 +166,7 @@ namespace WpfToolset.Windows.Data
 
         Predicate<object> ICollectionView.Filter
         {
-            get { return _collectionView.Filter; }
+            get => _collectionView.Filter;
             set
             {
                 _collectionView.Filter = value;
@@ -173,12 +177,12 @@ namespace WpfToolset.Windows.Data
         [CanBeNull]
         public Predicate<T> Filter
         {
-            get { return _filter; }
+            get => _filter;
             set
             {
                 _filter = value;
                 if (_filter != null)
-                    _collectionView.Filter = e => _filter(e != null ? (T)e : default(T));
+                    _collectionView.Filter = e => _filter((T) e);
                 else
                     _collectionView.Filter = null;
             }
@@ -351,8 +355,8 @@ namespace WpfToolset.Windows.Data
 
             public object this[int index]
             {
-                get { return _listImplementation[index]; }
-                set { _listImplementation[index] = value; }
+                get => _listImplementation[index];
+                set => _listImplementation[index] = value;
             }
 
             public bool IsReadOnly => _listImplementation.IsReadOnly;

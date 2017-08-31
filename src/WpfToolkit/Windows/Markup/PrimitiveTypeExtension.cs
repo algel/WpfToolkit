@@ -23,44 +23,4 @@ namespace WpfToolset.Windows.Markup
         }
 
     }
-
-    public class ByteExtension : PrimitiveTypeExtension<byte>
-    {
-        /// <summary>Initializes a new instance of a class derived from <see cref="T:System.Windows.Markup.MarkupExtension" />. </summary>
-        public ByteExtension(byte value) : base(value)
-        {
-        }
-    }
-
-    public class BoolExtension : PrimitiveTypeExtension<bool>
-    {
-        /// <summary>Initializes a new instance of a class derived from <see cref="T:System.Windows.Markup.MarkupExtension" />. </summary>
-        public BoolExtension(bool value) : base(value)
-        {
-        }
-    }
-
-    public class Int16Extension : PrimitiveTypeExtension<short>
-    {
-        /// <summary>Initializes a new instance of a class derived from <see cref="T:System.Windows.Markup.MarkupExtension" />. </summary>
-        public Int16Extension(short value) : base(value)
-        {
-        }
-    }
-
-    public class Int32Extension : PrimitiveTypeExtension<int>
-    {
-        /// <summary>Initializes a new instance of a class derived from <see cref="T:System.Windows.Markup.MarkupExtension" />. </summary>
-        public Int32Extension(int value) : base(value)
-        {
-        }
-    }
-
-    public class Int64Extension : PrimitiveTypeExtension<long>
-    {
-        /// <summary>Initializes a new instance of a class derived from <see cref="T:System.Windows.Markup.MarkupExtension" />. </summary>
-        public Int64Extension(long value) : base(value)
-        {
-        }
-    }
 }

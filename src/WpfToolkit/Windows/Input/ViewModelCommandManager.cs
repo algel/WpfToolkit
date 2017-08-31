@@ -172,44 +172,51 @@ namespace WpfToolset.Windows.Input
         }
     }
 
-    /// <summary>
-    /// Содержит данные для событий выполнения команды
-    /// </summary>
-    public class CommandExecuteEventArgs : EventArgs
+    public static class ViewModelCommandManagerExtensions
     {
-        /// <inheritdoc />
-        public CommandExecuteEventArgs(string name, object parameter)
+        public static IViewModelCommand Get(this ViewModelCommandManager commandManager, [CallerMemberName]string name = null)
         {
-            Name = name;
-            Parameter = parameter;
+            return commandManager[name];
         }
 
-        /// <summary>
-        /// Имя команды
-        /// </summary>
-        public string Name { get; }
-
-
-        /// <summary>
-        /// Значение аргумента команды
-        /// </summary>
-        public object Parameter { get; }
-    }
-
-    /// <summary>
-    /// Содержит данные для собития начала выполнения команды
-    /// </summary>
-    public class CommandExecutingEventArgs : CommandExecuteEventArgs
-    {
-        /// <inheritdoc />
-        public CommandExecutingEventArgs(string name, object value) : base(name, value)
+        public static IViewModelCommand CreateCommand(this ViewModelCommandManager commandManager, Action executeMethod, [CallerMemberName]string name = null)
         {
+            return commandManager.CreateCommand(name, executeMethod);
         }
 
-        /// <summary>
-        /// Признак отмены выполнения команды
-        /// </summary>
-        public bool Cancel { get; set; }
+        public static IViewModelCommand CreateCommand(this ViewModelCommandManager commandManager, Action<object> executeMethod, [CallerMemberName]string name = null)
+        {
+            return commandManager.CreateCommand(name, executeMethod);
+        }
 
+        public static IViewModelCommand CreateCommand(this ViewModelCommandManager commandManager, Action executeMethod, Func<bool> canExecuteMethod, [CallerMemberName]string name = null)
+        {
+            return commandManager.CreateCommand(name, executeMethod, canExecuteMethod);
+        }
+
+        public static IViewModelCommand CreateCommand(this ViewModelCommandManager commandManager, Action<object> executeMethod, Func<object, bool> canExecuteMethod, [CallerMemberName]string name = null)
+        {
+            return commandManager.CreateCommand(name, executeMethod, canExecuteMethod);
+        }
+
+        public static IViewModelCommand CreateCommand(this ViewModelCommandManager commandManager, Func<Task> executeMethod, Action<Task, Exception> exceptionHandlerMethod, [CallerMemberName]string name = null)
+        {
+            return commandManager.CreateCommand(name, executeMethod, exceptionHandlerMethod);
+        }
+
+        public static IViewModelCommand CreateCommand(this ViewModelCommandManager commandManager, Func<object, Task> executeMethod, Action<Task, Exception> exceptionHandlerMethod, [CallerMemberName]string name = null)
+        {
+            return commandManager.CreateCommand(name, executeMethod, exceptionHandlerMethod);
+        }
+
+        public static IViewModelCommand CreateCommand(this ViewModelCommandManager commandManager, Func<Task> executeMethod, Func<bool> canExecuteMethod, Action<Task, Exception> exceptionHandlerMethod, [CallerMemberName]string name = null)
+        {
+            return commandManager.CreateCommand(name, executeMethod, canExecuteMethod, exceptionHandlerMethod);
+        }
+
+        public static IViewModelCommand CreateCommand(this ViewModelCommandManager commandManager, Func<object, Task> executeMethod, Func<object, bool> canExecuteMethod, Action<Task, Exception> exceptionHandlerMethod, [CallerMemberName]string name = null)
+        {
+            return commandManager.CreateCommand(name, executeMethod, canExecuteMethod, exceptionHandlerMethod);
+        }
     }
 }
