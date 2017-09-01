@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace WpfToolset.Linq
 {
-    static class EnumerableExtensions
+    internal static class EnumerableExtensions
     {
         /// <summary>
         /// Execute the provided <paramref name="action" /> on every item in <paramref name="sequence" />.
@@ -16,24 +15,8 @@ namespace WpfToolset.Linq
         {
             if (sequence == null)
                 return;
-            foreach (TItem obj in sequence)
+            foreach (var obj in sequence)
                 action(obj);
-        }
-    }
-
-    static class CollectionExtensions
-    {
-        /// <summary>
-        /// Adds the elements from the specified collection - <paramref name="items"/> to the end of the target <paramref name="collection"/>.
-        /// </summary>
-        /// <param name="collection">The collection that will be extended.</param>
-        /// <param name="items">The items that will be added.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="items"/> is null</exception>
-        public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
-        {
-            if (items == null) throw new ArgumentNullException(nameof(items));
-
-            items.ToList().ForEach(collection.Add);
         }
     }
 }
