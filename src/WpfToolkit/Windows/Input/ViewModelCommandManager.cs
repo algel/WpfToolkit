@@ -46,16 +46,6 @@ namespace WpfToolset.Windows.Input
             return this[name] = new ViewModelCommand(() => { });
         }
 
-        public IViewModelCommand Get([CallerMemberName]string name=null)
-        {
-            return this[name];
-        }
-
-        public IViewModelCommand CreateCommand(Action executeMethod, [CallerMemberName]string name = null)
-        {
-            return CreateCommand(name, executeMethod);
-        }
-
         public IViewModelCommand CreateCommand(string name, Action executeMethod)
         {
             return this[name] = new ViewModelCommand(executeMethod);
@@ -64,16 +54,6 @@ namespace WpfToolset.Windows.Input
         public IViewModelCommand CreateCommand(string name, Action<object> executeMethod)
         {
             return this[name] = new ViewModelCommand(executeMethod);
-        }
-
-        public IViewModelCommand CreateCommand(string name, Func<Task> executeMethod, Action<Task, Exception> exceptionHandlerMethod)
-        {
-            return this[name] = new ViewModelCommand(executeMethod, exceptionHandlerMethod);
-        }
-
-        public IViewModelCommand CreateCommand(string name, Func<object, Task> executeMethod, Action<Task, Exception> exceptionHandlerMethod)
-        {
-            return this[name] = new ViewModelCommand(executeMethod, exceptionHandlerMethod);
         }
 
         public IViewModelCommand CreateCommand(string name, Action executeMethod, Func<bool> canExecuteMethod)
@@ -86,6 +66,16 @@ namespace WpfToolset.Windows.Input
             return this[name] = new ViewModelCommand(executeMethod, canExecuteMethod);
         }
 
+        public IViewModelCommand CreateCommand(string name, Func<Task> executeMethod, Action<Task, Exception> exceptionHandlerMethod)
+        {
+            return this[name] = new ViewModelCommand(executeMethod, exceptionHandlerMethod);
+        }
+
+        public IViewModelCommand CreateCommand(string name, Func<object, Task> executeMethod, Action<Task, Exception> exceptionHandlerMethod)
+        {
+            return this[name] = new ViewModelCommand(executeMethod, exceptionHandlerMethod);
+        }
+
         public IViewModelCommand CreateCommand(string name, Func<Task> executeMethod, Func<bool> canExecuteMethod, Action<Task, Exception> exceptionHandlerMethod)
         {
             return this[name] = new ViewModelCommand(executeMethod, canExecuteMethod, exceptionHandlerMethod);
@@ -96,9 +86,7 @@ namespace WpfToolset.Windows.Input
             return this[name] = new ViewModelCommand(executeMethod, canExecuteMethod, exceptionHandlerMethod);
         }
 
-
         #endregion
-
 
         private void OnEntryCommand_Executed(object sender, DataEventArgs e)
         {
@@ -121,7 +109,6 @@ namespace WpfToolset.Windows.Input
                 e.Cancel = cancelArgs.Cancel;
             }
         }
-
 
         #endregion
 
@@ -177,6 +164,11 @@ namespace WpfToolset.Windows.Input
         public static IViewModelCommand Get(this ViewModelCommandManager commandManager, [CallerMemberName]string name = null)
         {
             return commandManager[name];
+        }
+
+        public static IViewModelCommand CreateCommand(this ViewModelCommandManager commandManager, [CallerMemberName] string name = null)
+        {
+            return commandManager.CreateCommand(name);
         }
 
         public static IViewModelCommand CreateCommand(this ViewModelCommandManager commandManager, Action executeMethod, [CallerMemberName]string name = null)
