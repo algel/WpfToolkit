@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace WpfToolset.ComponentModel
@@ -14,5 +16,10 @@ namespace WpfToolset.ComponentModel
 
         [IndexerName("Item")]
         public T this[TIndex index] => _getter(index);
+
+        public IEnumerable<T> AsEnumerable(IEnumerable<TIndex> indices)
+        {
+            return indices.Select(t => this[t]);
+        }
     }
 }

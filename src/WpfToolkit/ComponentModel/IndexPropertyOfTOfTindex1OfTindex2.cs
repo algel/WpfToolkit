@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 
@@ -44,6 +46,18 @@ namespace WpfToolset.ComponentModel
                     OnPropertyChanged("Item[]");
                 }
             }
+        }
+
+        [IndexerName("Item")]
+        public T this[Tuple<TIndex1, TIndex2> key]
+        {
+            get { return this[key.Item1, key.Item2]; }
+            set { this[key.Item1, key.Item2] = value; }
+        }
+
+        public IEnumerable<T> AsEnumerable(IEnumerable<Tuple<TIndex1, TIndex2>> indices)
+        {
+            return indices.Select(t => this[t]);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

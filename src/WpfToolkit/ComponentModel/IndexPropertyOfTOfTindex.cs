@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 
@@ -44,6 +46,11 @@ namespace WpfToolset.ComponentModel
                     OnPropertyChanged("Item[]");
                 }
             }
+        }
+
+        public IEnumerable<T> AsEnumerable(IEnumerable<TIndex> indices)
+        {
+            return indices.Select(t => this[t]);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

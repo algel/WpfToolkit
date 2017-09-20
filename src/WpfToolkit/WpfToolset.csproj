@@ -55,6 +55,7 @@
     <Compile Include="Collections\CollectionChangingEventArgs.cs" />
     <Compile Include="Collections\ObservableCollectionEx.cs" />
     <Compile Include="Collections\WeakReferenceList.cs" />
+    <Compile Include="ComponentModel\Helpers\ObjectCloneHelperBase.cs" />
     <Compile Include="ComponentModel\IndexPropertyOfTOfTindex.cs" />
     <Compile Include="ComponentModel\IndexPropertyOfTOfTindex1OfTindex2.cs" />
     <Compile Include="ComponentModel\IndexPropertyOfTOfTindex1OfTindex2OfTIndex3.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="ComponentModel\IndexReadonlyPropertyOfTOfTindex1OfTindex2OfTindex3.cs" />
     <Compile Include="Events\CancelDataEventArgs.cs" />
     <Compile Include="Events\DataEventArgs.cs" />
+    <Compile Include="Events\PropertyValueChangedEventArgs.cs" />
     <Compile Include="Linq\CollectionExtensions.cs" />
     <Compile Include="Linq\CollectionViewExtensions.cs" />
     <Compile Include="Linq\EnumerableExtensions.cs" />
