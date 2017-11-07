@@ -82,6 +82,7 @@
     <Compile Include="Windows\Input\IViewModelCommand.cs" />
     <Compile Include="Windows\Input\ViewModelCommand.cs" />
     <Compile Include="Windows\Input\ViewModelCommandManager.cs" />
+    <Compile Include="Windows\Input\ViewModelCommandManagerExtensions.cs" />
     <Compile Include="Windows\Markup\BoolExtension.cs" />
     <Compile Include="Windows\Markup\ByteExtension.cs" />
     <Compile Include="Windows\Markup\Int16Extension.cs" />
