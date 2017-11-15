@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>WpfToolset</id>
-    <version>0.2.1</version>
+    <version>0.3.0</version>
     <title>WpfToolset</title>
     <authors>Alexey Pozdnyakov</authors>
     <owners>Alexey Pozdnyakov</owners>
