@@ -134,7 +134,7 @@ namespace WpfToolset.Windows.Controls
 
             foreach (FrameworkElement child in Children)
             {
-                if (GetDisableAutoAllocation(child))
+                if (GetDisableAutoAllocation(child) || child is ControlMaxWidthLimiter)
                     continue;
 
                 if (GetStretchToLastColumn(child))

@@ -71,6 +71,7 @@
     <Compile Include="Linq\CollectionViewExtensions.cs" />
     <Compile Include="Linq\EnumerableExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Windows\Controls\ControlMaxWidthLimiter.cs" />
     <Compile Include="Windows\Controls\GridEx.cs" />
     <Compile Include="Windows\Controls\EmptyRow.cs" />
     <Compile Include="Windows\Controls\NumericEditor.cs" />
