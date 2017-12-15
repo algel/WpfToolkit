@@ -77,6 +77,7 @@
     <Compile Include="Windows\Controls\NumericEditor.cs" />
     <Compile Include="Windows\Controls\RangeBase.cs" />
     <Compile Include="Windows\Controls\StackGrid.cs" />
+    <Compile Include="Windows\Controls\StackGridHelper.cs" />
     <Compile Include="Windows\Converters\HorizontalContentAlignmentToTextAlignmentConverter.cs" />
     <Compile Include="Windows\Data\CollectionView.cs" />
     <Compile Include="Windows\DesignerHelper.cs" />

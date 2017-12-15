@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using JetBrains.Annotations;
@@ -14,7 +16,8 @@ namespace WpfToolset.Windows.Controls
     /// <code>&lt;wt:GridEx RowDefinitionsScript="[3]Auto;*" ColumnDefinitionScript="Auto;*"&gt;</code>
     /// </example>
     /// </summary>
-    public class GridEx : Grid
+    [PublicAPI]
+    public class GridEx : Grid, INotifyPropertyChanged
     {
         /// <summary>
         /// Allows you to describe the row and column position for child element of the table using a string
@@ -27,8 +30,14 @@ namespace WpfToolset.Windows.Controls
         /// </code>
         /// </example>
         /// </summary>
-        [PublicAPI]
         public static readonly DependencyProperty PositionProperty = DependencyProperty.RegisterAttached("Position", typeof(string), typeof(GridEx), new PropertyMetadata(default(string), OnPositionPropertyChanged));
+
+
+        /// <summary>Initializes a new instance of <see cref="T:System.Windows.Controls.Grid" />.</summary>
+        public GridEx()
+        {
+            PropertyChanged += (sender, e) => OnPropertyChanged(e.PropertyName);
+        }
 
         private static void OnPositionPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
@@ -75,7 +84,6 @@ namespace WpfToolset.Windows.Controls
         /// </summary>
         /// <param name="element">The element on which to set the attached property.</param>
         /// <param name="value">The property value to set.</param>
-        [PublicAPI]
         public static void SetPosition(DependencyObject element, string value)
         {
             element.SetValue(PositionProperty, value);
@@ -92,7 +100,7 @@ namespace WpfToolset.Windows.Controls
             return (string)element.GetValue(PositionProperty);
         }
 
-        private IEnumerable<string> ExpandStringDefinition(string source)
+        private static IEnumerable<string> ExpandStringDefinition(string source)
         {
             if (source.StartsWith("["))
             {
@@ -104,7 +112,7 @@ namespace WpfToolset.Windows.Controls
             return new[] { source };
         }
 
-        private IEnumerable<string> CompactStringDefinition(IEnumerable<string> source)
+        private static IEnumerable<string> CompactStringDefinition(IEnumerable<string> source)
         {
             string previewsItem = null;
             var counter = 0;
@@ -150,7 +158,6 @@ namespace WpfToolset.Windows.Controls
         /// </code>
         /// </example>
         /// </summary>
-        [PublicAPI]
         public string RowDefinitionsScript
         {
             get
@@ -169,6 +176,7 @@ namespace WpfToolset.Windows.Controls
                         {
                             RowDefinitions.Add(RowColumnDefinition.FromString(e).ToRowDefinition());
                         });
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -190,7 +198,6 @@ namespace WpfToolset.Windows.Controls
         /// </code>
         /// </example>
         /// </summary>
-        [PublicAPI]
         public string ColumnDefinitionsScript
         {
             get
@@ -210,6 +217,8 @@ namespace WpfToolset.Windows.Controls
                         {
                             ColumnDefinitions.Add(RowColumnDefinition.FromString(e).ToColumnDefinition());
                         });
+
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -266,47 +275,47 @@ namespace WpfToolset.Windows.Controls
                     switch (splittedParts.Length)
                     {
                         case 1:
-                        {
-                            return new RowColumnDefinition
                             {
-                                MinHeightWidth = 0,
-                                HeightWidth = (GridLength)gridLengthConverter.ConvertFromInvariantString(splittedParts[0]),
-                                MaxHeightWidth = double.PositiveInfinity,
-                            };
-                        }
+                                return new RowColumnDefinition
+                                {
+                                    MinHeightWidth = 0,
+                                    HeightWidth = (GridLength)gridLengthConverter.ConvertFromInvariantString(splittedParts[0]),
+                                    MaxHeightWidth = double.PositiveInfinity,
+                                };
+                            }
                         case 2:
-                        {
-                            return new RowColumnDefinition
                             {
-                                MinHeightWidth = 0,
-                                HeightWidth = (GridLength)gridLengthConverter.ConvertFromInvariantString(splittedParts[0]),
-                                MaxHeightWidth = double.PositiveInfinity,
-                                SharedSizeGroup = splittedParts[1]
-                            };
-                        }
+                                return new RowColumnDefinition
+                                {
+                                    MinHeightWidth = 0,
+                                    HeightWidth = (GridLength)gridLengthConverter.ConvertFromInvariantString(splittedParts[0]),
+                                    MaxHeightWidth = double.PositiveInfinity,
+                                    SharedSizeGroup = splittedParts[1]
+                                };
+                            }
                         case 3:
-                        {
-                            return new RowColumnDefinition
                             {
-                                MinHeightWidth = (double)lengthConverter.ConvertFromInvariantString(splittedParts[0]),
-                                HeightWidth = (GridLength)gridLengthConverter.ConvertFromInvariantString(splittedParts[1]),
-                                MaxHeightWidth = (double)lengthConverter.ConvertFromInvariantString(splittedParts[2])
-                            };
-                        }
+                                return new RowColumnDefinition
+                                {
+                                    MinHeightWidth = (double)lengthConverter.ConvertFromInvariantString(splittedParts[0]),
+                                    HeightWidth = (GridLength)gridLengthConverter.ConvertFromInvariantString(splittedParts[1]),
+                                    MaxHeightWidth = (double)lengthConverter.ConvertFromInvariantString(splittedParts[2])
+                                };
+                            }
                         case 4:
-                        {
-                            return new RowColumnDefinition
                             {
-                                MinHeightWidth = (double)lengthConverter.ConvertFromInvariantString(splittedParts[0]),
-                                HeightWidth = (GridLength)gridLengthConverter.ConvertFromInvariantString(splittedParts[1]),
-                                MaxHeightWidth = (double)lengthConverter.ConvertFromInvariantString(splittedParts[2]),
-                                SharedSizeGroup = splittedParts[3]
-                            };
-                        }
+                                return new RowColumnDefinition
+                                {
+                                    MinHeightWidth = (double)lengthConverter.ConvertFromInvariantString(splittedParts[0]),
+                                    HeightWidth = (GridLength)gridLengthConverter.ConvertFromInvariantString(splittedParts[1]),
+                                    MaxHeightWidth = (double)lengthConverter.ConvertFromInvariantString(splittedParts[2]),
+                                    SharedSizeGroup = splittedParts[3]
+                                };
+                            }
 
                         default:
                             throw new ArgumentException("Не удалось распознать параметры.", nameof(info));
-                        // ReSharper restore PossibleNullReferenceException
+                            // ReSharper restore PossibleNullReferenceException
                     }
                 }
                 catch (NullReferenceException e)
@@ -362,5 +371,28 @@ namespace WpfToolset.Windows.Controls
 
         #endregion
 
+        /// <summary>
+        /// Occurs when a property value changes (not dependency property only)
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Rase INotifyPropertyChanged.PropertyChanged event
+        /// </summary>
+        /// <param name="propertyName"></param>
+        [NotifyPropertyChangedInvocator]
+        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        /// <summary>
+        /// The PropertyChanged event handler
+        /// </summary>
+        /// <param name="propertyName"></param>
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+
+        }
     }
 }
