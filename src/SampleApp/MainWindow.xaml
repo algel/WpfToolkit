@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SampleApp"
-        xmlns:wt="https://github.com/algel/WpfToolset"
+        xmlns:awt="https://github.com/algel/WpfToolset"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
 
@@ -12,21 +12,28 @@
         <local:MainWindowViewModel/>
     </Window.DataContext>
 
-    <wt:StackGrid RowDefinitionsScript="*;[2]Auto">
-        <wt:StackGrid x:Name="grid" AutogenerateRows="True" wt:StackGridHelper.ColumnDefinitionsScriptBindable="{Binding ColumnDefinitions, Mode=OneWay}"
+    <awt:StackGrid RowDefinitionsScript="*;[2]Auto">
+        <awt:StackGrid x:Name="grid" AutogenerateRows="True" awt:StackGridHelper.ColumnDefinitionsScriptBindable="{Binding ColumnDefinitions, Mode=OneWay}"
                       ShowGridLines="True">
 
             <TextBlock Text="First"/>
 
             <TextBox Height="27"/>
 
-        </wt:StackGrid>
+        </awt:StackGrid>
         
-        <Separator wt:StackGrid.StretchToLastColumn="True"/>
+        <Separator awt:StackGrid.StretchToLastColumn="True"/>
 
-        <wt:StackGrid ColumnDefinitionsScript="Auto;*">
+        <awt:StackGrid ColumnDefinitionsScript="Auto;*">
             <Label>Column definitions</Label>
             <TextBox Text="{Binding ColumnDefinitions, Mode=TwoWay}"/>
-        </wt:StackGrid>
-    </wt:StackGrid>
+        </awt:StackGrid>
+    </awt:StackGrid>
 </Window>
+
+
+
+
+
+
+

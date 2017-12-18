@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>Algel.WpfTools</id>
+    <version>2017.12.18</version>
+    <title>Algel.WpfTools</title>
+    <authors>Alexey Pozdnyakov</authors>
+    <owners>Alexey Pozdnyakov (Algel)</owners>
+    <licenseUrl>https://github.com/algel/WpfToolset/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/algel/WpfToolset</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>An auxiliary set of components for developing WPF applications</description>
+    <copyright>Copyright 2017 (c) Alexey Pozdnyakov.</copyright>
+    <tags>WpfTools Wpf StackGrid ViewModelCommand</tags>
+  </metadata>
+
+  <files>
+    <file src="..\src\WpfToolset\bin\Release\Algel.WpfTools.dll" target="lib\net45" />
+    <file src="..\src\WpfToolset\bin\Release\Algel.WpfTools.pdb" target="lib\net45" />
+    <file src="..\src\WpfToolset\bin\Release\Algel.WpfTools.xml" target="lib\net45" />
+  </files>
+</package>

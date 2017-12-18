@@ -99,9 +99,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WpfToolset\WpfToolset.csproj">
+    <ProjectReference Include="..\WpfTools\WpfTools.csproj">
       <Project>{cd733cb1-97bf-40d4-bc3f-638c7e190857}</Project>
-      <Name>WpfToolset</Name>
+      <Name>WpfTools</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
