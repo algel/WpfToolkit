@@ -1,5 +1,5 @@
 # WpfTools
-The WpfToolset library is a set of components used by me when developing desktop WPF applications
+The Algel.WpfTools library is a set of components used by me when developing desktop WPF applications
 
 Main components:
 
