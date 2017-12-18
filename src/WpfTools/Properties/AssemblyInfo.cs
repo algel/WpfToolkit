@@ -34,10 +34,10 @@ using System.Windows.Markup;
     // app, or any theme specific resource dictionaries)
 )]
 
-[assembly: XmlnsPrefix("https://github.com/algel/WpfToolset", "awt")]
-[assembly: XmlnsDefinition("https://github.com/algel/WpfToolset", "Algel.WpfTools.Windows.Controls")]
-[assembly: XmlnsDefinition("https://github.com/algel/WpfToolset", "Algel.WpfTools.Windows.Data")]
-[assembly: XmlnsDefinition("https://github.com/algel/WpfToolset", "Algel.WpfTools.Windows.Markup")]
+[assembly: XmlnsPrefix("https://github.com/algel/WpfTools", "awt")]
+[assembly: XmlnsDefinition("https://github.com/algel/WpfTools", "Algel.WpfTools.Windows.Controls")]
+[assembly: XmlnsDefinition("https://github.com/algel/WpfTools", "Algel.WpfTools.Windows.Data")]
+[assembly: XmlnsDefinition("https://github.com/algel/WpfTools", "Algel.WpfTools.Windows.Markup")]
 
 // Version information for an assembly consists of the following four values:
 //

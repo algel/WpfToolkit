@@ -7,8 +7,8 @@
     <title>Algel.WpfTools</title>
     <authors>Alexey Pozdnyakov</authors>
     <owners>Alexey Pozdnyakov (Algel)</owners>
-    <licenseUrl>https://github.com/algel/WpfToolset/blob/master/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/algel/WpfToolset</projectUrl>
+    <licenseUrl>https://github.com/algel/WpfTools/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/algel/WpfTools</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>An auxiliary set of components for developing WPF applications</description>
     <copyright>Copyright 2017 (c) Alexey Pozdnyakov.</copyright>
