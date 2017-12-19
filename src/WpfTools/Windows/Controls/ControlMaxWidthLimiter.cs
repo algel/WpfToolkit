@@ -21,12 +21,12 @@ namespace Algel.WpfTools.Windows.Controls
     /// 
     ///     <Label Grid.Column="0" Content="..." Target="{x:Reference myTextBox}/>
     ///     <TextBox x:Name="myTextBox" Grid.Column="1" Grid.ColumnSpan="2" />
-    ///     <wt:TextBoxMaxWidthLimiter Target={x:Reference myTextBox}/>
+    ///     <awt:ControlMaxWidthLimiter Target={x:Reference myTextBox}/>
     /// </Grid>
     /// 
     /// <!--OR-->
     /// 
-    /// <TextBox wt:TextBoxMaxWidthLimiter.FixAutoGrowMaxWidthBehavior="True"/>
+    /// <TextBox awt:ControlMaxWidthLimiter.FixAutoGrowMaxWidthBehavior="True"/>
     /// ]]>
     /// </code>
     /// </example>

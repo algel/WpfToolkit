@@ -34,11 +34,4 @@ Global
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {150A6F82-2E52-49B2-9BD0-D9B5C2DC3692}
 	EndGlobalSection
-	GlobalSection(AutomaticVersions) = postSolution
-		UpdateAssemblyVersion.Release|Any CPU = True
-		UpdateAssemblyFileVersion.Release|Any CPU = True
-		UpdateAssemblyInfoVersion.Release|Any CPU = False
-		AssemblyVersionSettings.Release|Any CPU = YearStamp.MonthStamp.DayStamp.TimeStamp
-		AssemblyFileVersionSettings.Release|Any CPU = YearStamp.MonthStamp.DayStamp.None
-	EndGlobalSection
 EndGlobal

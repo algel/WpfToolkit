@@ -13,6 +13,8 @@ using JetBrains.Annotations;
 
 namespace Algel.WpfTools.Windows.Data
 {
+    /// <inheritdoc cref="ICollectionView" />
+    [PublicAPI]
     public class CollectionView<T> : IEnumerable<T>, ICollectionView, INotifyPropertyChanged
     {
         #region Fields
@@ -30,6 +32,7 @@ namespace Algel.WpfTools.Windows.Data
 
         #region .ctor
 
+        /// <inheritdoc />
         public CollectionView([NotNull] ICollectionView generic)
         {
             _collectionView = generic ?? throw new ArgumentNullException(nameof(generic));
@@ -37,6 +40,7 @@ namespace Algel.WpfTools.Windows.Data
         }
 
         /// <inheritdoc />
+        // ReSharper disable once NotNullMemberIsNotInitialized
         public CollectionView([NotNull] IEnumerable source)
         {
             if (source == null)
@@ -69,6 +73,7 @@ namespace Algel.WpfTools.Windows.Data
 
         #region Methods
 
+        /// <inheritdoc />
         public IEnumerator<T> GetEnumerator()
         {
             return new Enumerator<T>(_collectionView.GetEnumerator());
@@ -79,11 +84,13 @@ namespace Algel.WpfTools.Windows.Data
             return _collectionView.GetEnumerator();
         }
 
+        /// <inheritdoc />
         public bool Contains(object item)
         {
             return _collectionView.Contains(item);
         }
 
+        /// <inheritdoc />
         public void Refresh()
         {
             if (_enumerableWrapper != null)
@@ -99,36 +106,43 @@ namespace Algel.WpfTools.Windows.Data
             }
         }
 
+        /// <inheritdoc />
         public IDisposable DeferRefresh()
         {
             return _collectionView.DeferRefresh();
         }
 
+        /// <inheritdoc />
         public bool MoveCurrentToFirst()
         {
             return _collectionView.MoveCurrentToFirst();
         }
 
+        /// <inheritdoc />
         public bool MoveCurrentToLast()
         {
             return _collectionView.MoveCurrentToLast();
         }
 
+        /// <inheritdoc />
         public bool MoveCurrentToNext()
         {
             return _collectionView.MoveCurrentToNext();
         }
 
+        /// <inheritdoc />
         public bool MoveCurrentToPrevious()
         {
             return _collectionView.MoveCurrentToPrevious();
         }
 
+        /// <inheritdoc />
         public bool MoveCurrentTo(object item)
         {
             return _collectionView.MoveCurrentTo(item);
         }
 
+        /// <inheritdoc />
         public bool MoveCurrentToPosition(int position)
         {
             return _collectionView.MoveCurrentToPosition(position);
@@ -138,30 +152,41 @@ namespace Algel.WpfTools.Windows.Data
 
         #region Properties
 
+        /// <inheritdoc />
         public CultureInfo Culture
         {
             get => _collectionView.Culture;
             set => _collectionView.Culture = value;
         }
 
+        /// <inheritdoc />
         public bool CanFilter => _collectionView.CanFilter;
 
+        /// <inheritdoc />
         public SortDescriptionCollection SortDescriptions => _collectionView.SortDescriptions;
 
+        /// <inheritdoc />
         public bool CanSort => _collectionView.CanSort;
 
+        /// <inheritdoc />
         public bool CanGroup => _collectionView.CanGroup;
 
+        /// <inheritdoc />
         public ObservableCollection<GroupDescription> GroupDescriptions => _collectionView.GroupDescriptions;
 
+        /// <inheritdoc />
         public ReadOnlyObservableCollection<object> Groups => _collectionView.Groups;
 
+        /// <inheritdoc />
         public bool IsEmpty => _collectionView.IsEmpty;
 
+        /// <inheritdoc />
         public int CurrentPosition => _collectionView.CurrentPosition;
 
+        /// <inheritdoc />
         public bool IsCurrentAfterLast => _collectionView.IsCurrentAfterLast;
 
+        /// <inheritdoc />
         public bool IsCurrentBeforeFirst => _collectionView.IsCurrentBeforeFirst;
 
         Predicate<object> ICollectionView.Filter
@@ -174,6 +199,7 @@ namespace Algel.WpfTools.Windows.Data
             }
         }
 
+        /// <inheritdoc cref="ICollectionView.Filter" />
         [CanBeNull]
         public Predicate<T> Filter
         {
@@ -188,12 +214,15 @@ namespace Algel.WpfTools.Windows.Data
             }
         }
 
+        /// <inheritdoc />
         object ICollectionView.CurrentItem => _collectionView.CurrentItem;
 
+        /// <inheritdoc cref="ICollectionView.CurrentItem" />
         public T CurrentItem => (T)_collectionView.CurrentItem;
 
         IEnumerable ICollectionView.SourceCollection => _collectionView.SourceCollection;
 
+        /// <inheritdoc cref="ICollectionView.SourceCollection" />
         [NotNull]
         public IEnumerable<T> SourceCollection => _collectionView.SourceCollection.Cast<T>();
 
@@ -201,6 +230,7 @@ namespace Algel.WpfTools.Windows.Data
 
         #region Events
 
+        /// <inheritdoc />
         public event CurrentChangingEventHandler CurrentChanging
         {
             add
@@ -219,6 +249,7 @@ namespace Algel.WpfTools.Windows.Data
             }
         }
 
+        /// <inheritdoc />
         public event EventHandler CurrentChanged
         {
             add
@@ -237,6 +268,7 @@ namespace Algel.WpfTools.Windows.Data
             }
         }
 
+        /// <inheritdoc />
         public event NotifyCollectionChangedEventHandler CollectionChanged
         {
             add
@@ -297,74 +329,90 @@ namespace Algel.WpfTools.Windows.Data
             {
                 _source = source;
                 RefreshList();
-                var notifyCollection = _source as INotifyCollectionChanged;
-                if (notifyCollection != null)
+                if (_source is INotifyCollectionChanged notifyCollection)
                     CollectionChangedEventManager.AddListener(notifyCollection, this);
             }
 
+            /// <inheritdoc />
             public IEnumerator GetEnumerator()
             {
                 return _listImplementation.GetEnumerator();
             }
 
+            /// <inheritdoc />
             public void CopyTo(Array array, int index)
             {
                 _listImplementation.CopyTo(array, index);
             }
 
+            /// <inheritdoc />
             public int Count => _listImplementation.Count;
 
+            /// <inheritdoc />
             public object SyncRoot => _listImplementation.SyncRoot;
 
+            /// <inheritdoc />
             public bool IsSynchronized => _listImplementation.IsSynchronized;
 
+            /// <inheritdoc />
             public int Add(object value)
             {
                 return _listImplementation.Add(value);
             }
 
+            /// <inheritdoc />
             public bool Contains(object value)
             {
                 return _listImplementation.Contains(value);
             }
 
+            /// <inheritdoc />
             public void Clear()
             {
                 _listImplementation.Clear();
             }
 
+            /// <inheritdoc />
             public int IndexOf(object value)
             {
                 return _listImplementation.IndexOf(value);
             }
 
+            /// <inheritdoc />
             public void Insert(int index, object value)
             {
                 _listImplementation.Insert(index, value);
             }
 
+            /// <inheritdoc />
             public void Remove(object value)
             {
                 _listImplementation.Remove(value);
             }
 
+            /// <inheritdoc />
             public void RemoveAt(int index)
             {
                 _listImplementation.RemoveAt(index);
             }
 
+            /// <inheritdoc />
             public object this[int index]
             {
                 get => _listImplementation[index];
                 set => _listImplementation[index] = value;
             }
 
+            /// <inheritdoc />
             public bool IsReadOnly => _listImplementation.IsReadOnly;
 
+            /// <inheritdoc />
             public bool IsFixedSize => _listImplementation.IsFixedSize;
 
+            /// <inheritdoc />
             public event NotifyCollectionChangedEventHandler CollectionChanged;
 
+            /// <inheritdoc />
             public bool ReceiveWeakEvent(Type managerType, object sender, EventArgs e)
             {
                 if (managerType == typeof(CollectionChangedEventManager))
@@ -396,10 +444,15 @@ namespace Algel.WpfTools.Windows.Data
 
         #endregion
 
+        /// <inheritdoc />
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Raise PropertyChanged event
+        /// </summary>
+        /// <param name="propertyName"></param>
         [NotifyPropertyChangedInvocator]
-        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

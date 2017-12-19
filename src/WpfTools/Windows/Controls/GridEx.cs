@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using Algel.WpfTools.Linq;
@@ -13,12 +11,14 @@ namespace Algel.WpfTools.Windows.Controls
     /// <summary>
     /// It allows you to describe the rows and columns of the table using a string
     /// <example>
-    /// <code>&lt;wt:GridEx RowDefinitionsScript="[3]Auto;*" ColumnDefinitionScript="Auto;*"&gt;</code>
+    /// <code>&lt;awt:GridEx RowDefinitionsScript="[3]Auto;*" ColumnDefinitionScript="Auto;*"&gt;</code>
     /// </example>
     /// </summary>
     [PublicAPI]
-    public class GridEx : Grid, INotifyPropertyChanged
+    public class GridEx : Grid
     {
+        #region Fields
+
         /// <summary>
         /// Allows you to describe the row and column position for child element of the table using a string
         /// <example>
@@ -32,12 +32,25 @@ namespace Algel.WpfTools.Windows.Controls
         /// </summary>
         public static readonly DependencyProperty PositionProperty = DependencyProperty.RegisterAttached("Position", typeof(string), typeof(GridEx), new PropertyMetadata(default(string), OnPositionPropertyChanged));
 
+        /// <summary>
+        /// Identifies the <see cref="ColumnDefinitionsScript"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty ColumnDefinitionsScriptProperty = DependencyProperty.Register(nameof(ColumnDefinitionsScript), typeof(string), typeof(GridEx), new PropertyMetadata(default(string), null, CoerceScriptDefinitionsValueCallback));
 
-        /// <summary>Initializes a new instance of <see cref="T:System.Windows.Controls.Grid" />.</summary>
-        public GridEx()
-        {
-            PropertyChanged += (sender, e) => OnPropertyChanged(e.PropertyName);
-        }
+        /// <summary>
+        /// Identifies the <see cref="RowDefinitionsScript"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty RowDefinitionsScriptProperty = DependencyProperty.Register(nameof(RowDefinitionsScript), typeof(string), typeof(GridEx), new PropertyMetadata(default(string), null, CoerceScriptDefinitionsValueCallback));
+
+        private bool _isColumnDefinitionsScriptPropertyInternalChanging;
+        private bool _isRowDefinitionsScriptPropertyInternalChanging;
+
+        private static readonly string RowColumnScriptPartJoinDelimiter = ";";
+        private static readonly string[] RowColumnScriptPartSplitDelimiters = { RowColumnScriptPartJoinDelimiter };
+
+        #endregion
+
+        #region Methods
 
         private static void OnPositionPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
@@ -94,7 +107,6 @@ namespace Algel.WpfTools.Windows.Controls
         /// </summary>
         /// <param name="element">The element from which to read the property value.</param>
         /// <returns>The value of the WpfToolset.Windows.Controls.GridEx.Position attached property.</returns>
-        [PublicAPI]
         public static string GetPosition(DependencyObject element)
         {
             return (string)element.GetValue(PositionProperty);
@@ -102,14 +114,14 @@ namespace Algel.WpfTools.Windows.Controls
 
         private static IEnumerable<string> ExpandStringDefinition(string source)
         {
-            if (source.StartsWith("["))
-            {
-                var i2 = source.IndexOf("]", StringComparison.Ordinal);
-                var cnt = int.Parse(source.Substring(1, i2 - 1));
-                var sourceWithoutCount = source.Substring(i2 + 1).Trim();
-                return Enumerable.Repeat(sourceWithoutCount, cnt);
-            }
-            return new[] { source };
+            if (!source.StartsWith("["))
+                return new[] { source };
+
+            var i2 = source.IndexOf("]", StringComparison.Ordinal);
+            var cnt = int.Parse(source.Substring(1, i2 - 1));
+            var sourceWithoutCount = source.Substring(i2 + 1).Trim();
+
+            return Enumerable.Repeat(sourceWithoutCount, cnt);
         }
 
         private static IEnumerable<string> CompactStringDefinition(IEnumerable<string> source)
@@ -125,7 +137,7 @@ namespace Algel.WpfTools.Windows.Controls
                     continue;
                 }
 
-                if (String.Compare(previewsItem, item, StringComparison.InvariantCultureIgnoreCase) == 0)
+                if (string.Compare(previewsItem, item, StringComparison.InvariantCultureIgnoreCase) == 0)
                 {
                     counter++;
                     continue;
@@ -139,47 +151,136 @@ namespace Algel.WpfTools.Windows.Controls
             yield return counter > 1 ? $"[{counter}]{previewsItem}" : previewsItem;
         }
 
+        private void GenerateRowDefinitionsFromScript(string script)
+        {
+            RowDefinitions.Clear();
+            script?.Split(RowColumnScriptPartSplitDelimiters, StringSplitOptions.RemoveEmptyEntries)
+                .SelectMany(ExpandStringDefinition)
+                .ForEach(e =>
+                {
+                    RowDefinitions.Add(RowColumnDefinition.FromString(e).ToRowDefinition());
+                });
+        }
+
+        private string GenerateScriptFromRowDefinitions()
+        {
+            return string.Join(RowColumnScriptPartJoinDelimiter, CompactStringDefinition(RowDefinitions.Select(rd => RowColumnDefinition.FromRowDefinition(rd).ToString())));
+        }
+
+        private void GenerateColumnDefinitionsFromScript(string script)
+        {
+            ColumnDefinitions.Clear();
+            script?.Split(RowColumnScriptPartSplitDelimiters, StringSplitOptions.RemoveEmptyEntries)
+                .SelectMany(ExpandStringDefinition)
+                .ForEach(e =>
+                {
+                    ColumnDefinitions.Add(RowColumnDefinition.FromString(e).ToColumnDefinition());
+                });
+        }
+
+        private string GenerateScriptFromColumnDefinitions()
+        {
+            return string.Join(RowColumnScriptPartJoinDelimiter, CompactStringDefinition(ColumnDefinitions.Select(cd => RowColumnDefinition.FromColumnDefinition(cd).ToString())));
+        }
+
+        private static string OptimizeScript(string script)
+        {
+            if (string.IsNullOrWhiteSpace(script))
+                return null;
+
+            var expandedParts = script.Split(RowColumnScriptPartSplitDelimiters, StringSplitOptions.RemoveEmptyEntries)
+                .SelectMany(ExpandStringDefinition);
+            return string.Join(RowColumnScriptPartJoinDelimiter, CompactStringDefinition(expandedParts));
+        }
+
+        private static object CoerceScriptDefinitionsValueCallback(DependencyObject dependencyObject, object baseValue)
+        {
+            return OptimizeScript((string) baseValue);
+        }
+
+        /// <inheritdoc />
+        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+        {
+            base.OnPropertyChanged(e);
+
+            if (e.Property == ColumnDefinitionsScriptProperty && !_isColumnDefinitionsScriptPropertyInternalChanging)
+                GenerateColumnDefinitionsFromScript((string)e.NewValue);
+            if (e.Property == RowDefinitionsScriptProperty && !_isRowDefinitionsScriptPropertyInternalChanging)
+                GenerateRowDefinitionsFromScript((string)e.NewValue);
+        }
+
+        #endregion
+
         #region Properties
 
-        /// <summary>
-        /// Text description of table rows
-        /// The row descriptions are separated by semicolons, the string parameters are separated by a space
-        /// If the same row are several rows, you can reduce the entry specifying the beginning of the description, the number of repetitions in square brackets
-        /// 
-        /// <example>
-        /// Examples:
-        /// <code>
-        /// RowDefinitionsScript="Auto;" equals &lt;RowDefinition Height="Auto"/&gt;
-        /// RowDefinitionsScript="Auto;Auto;Auto;" equals RowDefinitionsScript="[3]Auto;"
-        /// 
-        /// RowDefinitionsScript="30 GroupName;" equals &lt;RowDefinition Height="30" SharedSizeGroup="GroupName" /&gt;
-        /// RowDefinitionsScript="20 Auto 50;" equals &lt;RowDefinition MinHeight="20" Height="Auto" MaxHeight=50" /&gt;
-        /// RowDefinitionsScript="20 Auto 50 GroupName;" equals &lt;RowDefinition MinHeight="20" Height="Auto" MaxHeight=50" SharedSizeGroup="GroupName" /&gt;
-        /// </code>
-        /// </example>
-        /// </summary>
-        public string RowDefinitionsScript
-        {
-            get
-            {
-                return string.Join(";", CompactStringDefinition(RowDefinitions.Select(rd => RowColumnDefinition.FromRowDefinition(rd).ToString())));
-            }
-            set
-            {
-                var oldValue = RowDefinitionsScript;
-                if (string.Compare(oldValue, value, StringComparison.OrdinalIgnoreCase) != 0)
-                {
-                    RowDefinitions.Clear();
-                    value.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries)
-                        .SelectMany(ExpandStringDefinition)
-                        .ForEach(e =>
-                        {
-                            RowDefinitions.Add(RowColumnDefinition.FromString(e).ToRowDefinition());
-                        });
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        ///// <summary>
+        ///// Text description of table rows
+        ///// The row descriptions are separated by semicolons, the string parameters are separated by a space
+        ///// If the same row are several rows, you can reduce the entry specifying the beginning of the description, the number of repetitions in square brackets
+        ///// 
+        ///// <example>
+        ///// Examples:
+        ///// <code>
+        ///// RowDefinitionsScript="Auto;" equals &lt;RowDefinition Height="Auto"/&gt;
+        ///// RowDefinitionsScript="Auto;Auto;Auto;" equals RowDefinitionsScript="[3]Auto;"
+        ///// 
+        ///// RowDefinitionsScript="30 GroupName;" equals &lt;RowDefinition Height="30" SharedSizeGroup="GroupName" /&gt;
+        ///// RowDefinitionsScript="20 Auto 50;" equals &lt;RowDefinition MinHeight="20" Height="Auto" MaxHeight=50" /&gt;
+        ///// RowDefinitionsScript="20 Auto 50 GroupName;" equals &lt;RowDefinition MinHeight="20" Height="Auto" MaxHeight=50" SharedSizeGroup="GroupName" /&gt;
+        ///// </code>
+        ///// </example>
+        ///// </summary>
+        //public string RowDefinitionsScript
+        //{
+        //    get
+        //    {
+        //        return GenerateScriptFromRowDefinitions();
+        //    }
+        //    set
+        //    {
+        //        var oldValue = RowDefinitionsScript;
+        //        if (string.Compare(oldValue, value, StringComparison.OrdinalIgnoreCase) != 0)
+        //        {
+        //            GenerateRowDefinitionsFromScript(value);
+        //            RaisePropertyChanged();
+        //        }
+        //    }
+        //}
+
+        ///// <summary>
+        ///// Text description of table columns
+        ///// Descriptions of columns are separated by semicolons, the parameters column are separated by a space
+        ///// If the same column are several columns, you can reduce the entry specifying the beginning of the description, the number of repetitions in square brackets
+        ///// 
+        ///// <example>
+        ///// Examples:
+        ///// <code>
+        ///// ColumnDefinitionsScript="Auto;" equals &lt;ColumnDefinition Width="Auto"/&gt;
+        ///// ColumnDefinitionsScript="Auto;Auto;Auto;" equals ColumnDefinition="[3]Auto;"
+        ///// 
+        ///// ColumnDefinitionsScript="30 GroupName;" equals &lt;ColumnDefinition Width="30" SharedSizeGroup="GroupName" /&gt;
+        ///// ColumnDefinitionsScript="20 Auto 50;" equals &lt;ColumnDefinition MinWidth="20" Width="Auto" MaxWidth=50" /&gt;
+        ///// ColumnDefinitionsScript="20 Auto 50 GroupName;" equals &lt;ColumnDefinition MinWidth="20" Width="Auto" MaxWidth=50" SharedSizeGroup="GroupName" /&gt;
+        ///// </code>
+        ///// </example>
+        ///// </summary>
+        //public string ColumnDefinitionsScript
+        //{
+        //    get
+        //    {
+        //        return GenerateScriptFromColumnDefinitions();
+        //    }
+
+        //    set
+        //    {
+        //        var oldValue = ColumnDefinitionsScript;
+        //        if (string.Compare(oldValue, value, StringComparison.OrdinalIgnoreCase) != 0)
+        //        {
+        //            GenerateColumnDefinitionsFromScript(value);
+        //            RaisePropertyChanged();
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// Text description of table columns
@@ -200,27 +301,31 @@ namespace Algel.WpfTools.Windows.Controls
         /// </summary>
         public string ColumnDefinitionsScript
         {
-            get
-            {
-                return string.Join(";", CompactStringDefinition(ColumnDefinitions.Select(cd => RowColumnDefinition.FromColumnDefinition(cd).ToString())));
-            }
+            get { return (string)GetValue(ColumnDefinitionsScriptProperty); }
+            set { SetValue(ColumnDefinitionsScriptProperty, value); }
+        }
 
-            set
-            {
-                var oldValue = ColumnDefinitionsScript;
-                if (string.Compare(oldValue, value, StringComparison.OrdinalIgnoreCase) != 0)
-                {
-                    ColumnDefinitions.Clear();
-                    value.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries)
-                        .SelectMany(ExpandStringDefinition)
-                        .ForEach(e =>
-                        {
-                            ColumnDefinitions.Add(RowColumnDefinition.FromString(e).ToColumnDefinition());
-                        });
-
-                    RaisePropertyChanged();
-                }
-            }
+        /// <summary>
+        /// Text description of table columns
+        /// Descriptions of columns are separated by semicolons, the parameters column are separated by a space
+        /// If the same column are several columns, you can reduce the entry specifying the beginning of the description, the number of repetitions in square brackets
+        /// 
+        /// <example>
+        /// Examples:
+        /// <code>
+        /// ColumnDefinitionsScript="Auto;" equals &lt;ColumnDefinition Width="Auto"/&gt;
+        /// ColumnDefinitionsScript="Auto;Auto;Auto;" equals ColumnDefinition="[3]Auto;"
+        /// 
+        /// ColumnDefinitionsScript="30 GroupName;" equals &lt;ColumnDefinition Width="30" SharedSizeGroup="GroupName" /&gt;
+        /// ColumnDefinitionsScript="20 Auto 50;" equals &lt;ColumnDefinition MinWidth="20" Width="Auto" MaxWidth=50" /&gt;
+        /// ColumnDefinitionsScript="20 Auto 50 GroupName;" equals &lt;ColumnDefinition MinWidth="20" Width="Auto" MaxWidth=50" SharedSizeGroup="GroupName" /&gt;
+        /// </code>
+        /// </example>
+        /// </summary>
+        public string RowDefinitionsScript
+        {
+            get { return (string)GetValue(RowDefinitionsScriptProperty); }
+            set { SetValue(RowDefinitionsScriptProperty, value); }
         }
 
         #endregion
@@ -371,28 +476,5 @@ namespace Algel.WpfTools.Windows.Controls
 
         #endregion
 
-        /// <summary>
-        /// Occurs when a property value changes (not dependency property only)
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// Rase INotifyPropertyChanged.PropertyChanged event
-        /// </summary>
-        /// <param name="propertyName"></param>
-        [NotifyPropertyChangedInvocator]
-        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        /// <summary>
-        /// The PropertyChanged event handler
-        /// </summary>
-        /// <param name="propertyName"></param>
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-
-        }
     }
 }

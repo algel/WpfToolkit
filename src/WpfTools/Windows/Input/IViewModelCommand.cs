@@ -5,6 +5,9 @@ using Algel.WpfTools.Events;
 
 namespace Algel.WpfTools.Windows.Input
 {
+    /// <summary>
+    /// Defines a ViewModelCommand
+    /// </summary>
     public interface IViewModelCommand : ICommand
     {
         event EventHandler<DataEventArgs> CommandExecuted;
