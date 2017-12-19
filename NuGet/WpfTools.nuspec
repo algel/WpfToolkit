@@ -16,8 +16,9 @@
   </metadata>
 
   <files>
-    <file src="..\src\WpfToolset\bin\Release\Algel.WpfTools.dll" target="lib\net45" />
-    <file src="..\src\WpfToolset\bin\Release\Algel.WpfTools.pdb" target="lib\net45" />
-    <file src="..\src\WpfToolset\bin\Release\Algel.WpfTools.xml" target="lib\net45" />
+	<file src="Readme.md" target="" />
+    <file src="..\src\WpfTools\bin\Release\Algel.WpfTools.dll" target="lib\net45" />
+    <file src="..\src\WpfTools\bin\Release\Algel.WpfTools.pdb" target="lib\net45" />
+    <file src="..\src\WpfTools\bin\Release\Algel.WpfTools.xml" target="lib\net45" />
   </files>
 </package>
