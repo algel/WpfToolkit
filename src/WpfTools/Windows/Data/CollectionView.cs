@@ -27,6 +27,7 @@ namespace Algel.WpfTools.Windows.Data
         private Predicate<T> _filter;
 
         private readonly EnumerableWrapper _enumerableWrapper;
+        //private readonly IndexedEnumerable _enumerableWrapper;
 
         #endregion
 
@@ -65,6 +66,8 @@ namespace Algel.WpfTools.Windows.Data
             {
                 _enumerableWrapper = new EnumerableWrapper(source);
                 _collectionView = new ListCollectionView(_enumerableWrapper);
+                //_enumerableWrapper = new IndexedEnumerable(source);
+                //_collectionView = _enumerableWrapper.CollectionView; 
             }
             CurrentChanged += (sender, e) => RaisePropertyChanged(nameof(CurrentItem));
         }
@@ -320,7 +323,7 @@ namespace Algel.WpfTools.Windows.Data
             object IEnumerator.Current => Current;
         }
 
-        public class EnumerableWrapper : IList, INotifyCollectionChanged, IWeakEventListener
+        private class EnumerableWrapper : IList, INotifyCollectionChanged, IWeakEventListener
         {
             private readonly IEnumerable _source;
             private ArrayList _listImplementation;

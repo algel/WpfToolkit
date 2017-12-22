@@ -1,28 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
+using JetBrains.Annotations;
 
 namespace Algel.WpfTools.ComponentModel
 {
-    public class IndexReadonlyProperty<T, TIndex1, TIndex2>
+    /// <summary>
+    /// Provide read access to value by two keys
+    /// </summary>
+    /// <typeparam name="T">The type of the value</typeparam>
+    /// <typeparam name="TKey1">The type of key1</typeparam>
+    /// <typeparam name="TKey2">The type of key2</typeparam>
+    [PublicAPI]
+    public class IndexReadonlyProperty<T, TKey1, TKey2> : IndexReadonlyProperty<T, Tuple<TKey1, TKey2>>
     {
-        private readonly Func<TIndex1, TIndex2, T> _getter;
-
-        public IndexReadonlyProperty(Func<TIndex1, TIndex2, T> g)
+        /// <inheritdoc />
+        public IndexReadonlyProperty(Func<TKey1, TKey2, T> g) : base(key=>g(key.Item1, key.Item2))
         {
-            _getter = g ?? throw new ArgumentNullException(nameof(g));
         }
 
-        [IndexerName("Item")]
-        public T this[TIndex1 index1, TIndex2 index2] => _getter(index1, index2);
+        /// <summary>
+        /// Get value by keys
+        /// </summary>
+        /// <param name="key1"></param>
+        /// <param name="key2"></param>
+        public T this[TKey1 key1, TKey2 key2] => base[new Tuple<TKey1, TKey2>(key1, key2)];
 
-        [IndexerName("Item")]
-        public T this[Tuple<TIndex1, TIndex2> key] => _getter(key.Item1, key.Item2);
-
-        public IEnumerable<T> AsEnumerable(IEnumerable<Tuple<TIndex1, TIndex2>> indices)
-        {
-            return indices.Select(t => this[t]);
-        }
     }
 }

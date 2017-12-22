@@ -13,6 +13,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{11880B34
 		..\NuGet\WpfTools.nuspec = ..\NuGet\WpfTools.nuspec
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E3C59C18-2ED9-4ECE-BB8E-7CA635B351B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfTools.Tests", "Tests\WpfTools.Tests\WpfTools.Tests.csproj", "{31F0A537-EBC7-40C6-B96F-C31435606A09}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,19 +31,18 @@ Global
 		{8F9665AE-97A5-4675-A03D-5C8835CAE2DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F9665AE-97A5-4675-A03D-5C8835CAE2DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F9665AE-97A5-4675-A03D-5C8835CAE2DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31F0A537-EBC7-40C6-B96F-C31435606A09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31F0A537-EBC7-40C6-B96F-C31435606A09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31F0A537-EBC7-40C6-B96F-C31435606A09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31F0A537-EBC7-40C6-B96F-C31435606A09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{31F0A537-EBC7-40C6-B96F-C31435606A09} = {E3C59C18-2ED9-4ECE-BB8E-7CA635B351B3}
+	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {150A6F82-2E52-49B2-9BD0-D9B5C2DC3692}
-	EndGlobalSection
-	GlobalSection(AutomaticVersions) = postSolution
-		UpdateAssemblyVersion.Release|Any CPU = True
-		UpdateAssemblyFileVersion.Release|Any CPU = True
-		UpdateAssemblyInfoVersion.Release|Any CPU = False
-		ShouldCreateLogs.Release|Any CPU = True
-		AssemblyVersionSettings.Release|Any CPU = YearStamp.MonthStamp.DayStamp.TimeStamp
-		AssemblyFileVersionSettings.Release|Any CPU = YearStamp.MonthStamp.DayStamp.TimeStamp
 	EndGlobalSection
 EndGlobal

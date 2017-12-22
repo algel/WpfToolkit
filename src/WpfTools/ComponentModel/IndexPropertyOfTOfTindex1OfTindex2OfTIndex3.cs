@@ -1,72 +1,39 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 
 namespace Algel.WpfTools.ComponentModel
 {
-    public class IndexProperty<T, TIndex1, TIndex2, TIndex3> : INotifyPropertyChanged
+    /// <summary>
+    /// Base class for properties provide read and write access to values by two keys
+    /// </summary>
+    /// <typeparam name="T">The type of the value</typeparam>
+    /// <typeparam name="TKey1">The type of key1</typeparam>
+    /// <typeparam name="TKey2">The type of key2</typeparam>
+    /// <typeparam name="TKey3">The type of key3</typeparam>
+    [PublicAPI]
+    public class IndexProperty<T, TKey1, TKey2, TKey3> : IndexPropertyBase<T, Tuple<TKey1, TKey2, TKey3>>
     {
-        private readonly Func<TIndex1, TIndex2, TIndex3, T> _getter;
-        private readonly Action<TIndex1, TIndex2, TIndex3, T> _setter;
-        private readonly Action<TIndex1, TIndex2, TIndex3, T, T> _setterWithOldValue;
-
-        public IndexProperty(Func<TIndex1, TIndex2, TIndex3, T> g, Action<TIndex1, TIndex2, TIndex3, T> s)
+        /// <inheritdoc />
+        public IndexProperty(Func<TKey1, TKey2, TKey3, T> g, Action<TKey1, TKey2, TKey3, T> s) : base(key => g(key.Item1, key.Item2, key.Item3), (key, value) => s(key.Item1, key.Item2, key.Item3, value))
         {
-            _getter = g ?? throw new ArgumentNullException(nameof(g));
-            _setter = s ?? throw new ArgumentNullException(nameof(s));
         }
 
-        public IndexProperty(Func<TIndex1, TIndex2, TIndex3, T> g, Action<TIndex1, TIndex2, TIndex3, T, T> s)
+        /// <inheritdoc />
+        public IndexProperty(Func<TKey1, TKey2, TKey3, T> g, Action<TKey1, TKey2, TKey3, T, T> s) : base(key => g(key.Item1, key.Item2, key.Item3), (key, oldValue, value) => s(key.Item1, key.Item2, key.Item3, oldValue, value))
         {
-            _getter = g ?? throw new ArgumentNullException(nameof(g));
-            _setterWithOldValue = s ?? throw new ArgumentNullException(nameof(s));
         }
 
-        [IndexerName("Item")]
-        public T this[TIndex1 index1, TIndex2 index2, TIndex3 index3]
+        /// <summary>
+        /// Get or set value by keys
+        /// </summary>
+        /// <param name="key1"></param>
+        /// <param name="key2"></param>
+        /// <param name="key3"></param>
+        public T this[TKey1 key1, TKey2 key2, TKey3 key3]
         {
-            get
-            {
-                return _getter(index1, index2, index3);
-            }
-            set
-            {
-                var oldValue = _getter(index1, index2, index3);
-                if (!Equals(oldValue, value))
-                {
-                    if (_setter != null)
-                        _setter(index1, index2, index3, value);
-                    else
-                        _setterWithOldValue(index1, index2, index3, oldValue, value);
-
-                    // ReSharper disable once NotResolvedInText
-                    OnPropertyChanged("Item[]");
-                }
-            }
+            get => base[new Tuple<TKey1, TKey2, TKey3>(key1, key2, key3)];
+            set => base[new Tuple<TKey1, TKey2, TKey3>(key1, key2, key3)] = value;
         }
 
-        [IndexerName("Item")]
-        public T this[Tuple<TIndex1, TIndex2, TIndex3> key]
-        {
-            get { return this[key.Item1, key.Item2, key.Item3]; }
-            set { this[key.Item1, key.Item2, key.Item3] = value; }
-        }
-
-        public IEnumerable<T> AsEnumerable(IEnumerable<Tuple<TIndex1, TIndex2, TIndex3>> indices)
-        {
-            return indices.Select(t => this[t]);
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            var handler = PropertyChanged;
-            handler?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }
