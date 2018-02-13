@@ -36,7 +36,7 @@ namespace Algel.WpfTools.Windows.Controls
     {
         #region Fields
 
-        private int _lastMeasureChildrenCount;
+        private bool _isChildrenChanged;
 
         /// <summary>
         /// Sign line feed. I.e. even if the current row is not filled cells, then the following items need to be placed on a new line
@@ -67,22 +67,6 @@ namespace Algel.WpfTools.Windows.Controls
 
         #region Constructor
 
-        ///// <summary>
-        ///// Initializes a new instance of the <see cref="StackGrid"/> class.
-        ///// </summary>
-        //public StackGrid()
-        //{
-        //    if (DesignerHelper.IsInDesignModeStatic)
-        //    {
-        //        Loaded += OnInitialized;
-        //    }
-        //    else
-        //    {
-        //        Initialized += OnInitialized;
-
-        //    }
-        //}
-
         #endregion
 
         #region Method
@@ -90,11 +74,10 @@ namespace Algel.WpfTools.Windows.Controls
         /// <inheritdoc />
         protected override Size MeasureOverride(Size constraint)
         {
-            var currentMeasureChildrenCount = Children.Count;
-            if (_lastMeasureChildrenCount != currentMeasureChildrenCount)
+            if (_isChildrenChanged)
             {
                 SetPositionForAllChildren();
-                _lastMeasureChildrenCount = currentMeasureChildrenCount;
+                _isChildrenChanged = false;
             }
 
             return base.MeasureOverride(constraint);
@@ -105,8 +88,11 @@ namespace Algel.WpfTools.Windows.Controls
             UIElement previous = null;
             foreach (UIElement child in Children)
             {
-                SetPositionForElement(child, previous, forced);
-                previous = child;
+                if (!GetDisableAutoAllocation(child) || child is ControlMaxWidthLimiter)
+                {
+                    SetPositionForElement(child, previous, forced);
+                    previous = child;
+                }
             }
         }
 
@@ -244,6 +230,13 @@ namespace Algel.WpfTools.Windows.Controls
             base.OnPropertyChanged(e);
             if (e.Property == ColumnDefinitionsScriptProperty)
                 SetPositionForAllChildren(true);
+        }
+
+        /// <inheritdoc />
+        protected override void OnVisualChildrenChanged(DependencyObject visualAdded, DependencyObject visualRemoved)
+        {
+            _isChildrenChanged = true;
+            base.OnVisualChildrenChanged(visualAdded, visualRemoved);
         }
 
         #endregion

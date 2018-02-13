@@ -11,7 +11,9 @@ namespace Algel.WpfTools.Windows.Controls
     /// <summary>
     /// It allows you to describe the rows and columns of the table using a string
     /// <example>
-    /// <code>&lt;awt:GridEx RowDefinitionsScript="[3]Auto;*" ColumnDefinitionScript="Auto;*"&gt;</code>
+    /// <code>
+    /// <![CDATA[<awt:GridEx RowDefinitionsScript="[3]Auto;*" ColumnDefinitionScript="Auto;*">]]>
+    /// </code>
     /// </example>
     /// </summary>
     [PublicAPI]
@@ -41,9 +43,6 @@ namespace Algel.WpfTools.Windows.Controls
         /// Identifies the <see cref="RowDefinitionsScript"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty RowDefinitionsScriptProperty = DependencyProperty.Register(nameof(RowDefinitionsScript), typeof(string), typeof(GridEx), new PropertyMetadata(default(string), null, CoerceScriptDefinitionsValueCallback));
-
-        private bool _isColumnDefinitionsScriptPropertyInternalChanging;
-        private bool _isRowDefinitionsScriptPropertyInternalChanging;
 
         private static readonly string RowColumnScriptPartJoinDelimiter = ";";
         private static readonly string[] RowColumnScriptPartSplitDelimiters = { RowColumnScriptPartJoinDelimiter };
@@ -93,7 +92,7 @@ namespace Algel.WpfTools.Windows.Controls
         }
 
         /// <summary>
-        /// Sets the value of the WpfToolset.Windows.Controls.GridEx.Position attached property to a given System.Windows.UIElement.
+        /// Sets the value of the <see cref="PositionProperty"/> to a given System.Windows.UIElement.
         /// </summary>
         /// <param name="element">The element on which to set the attached property.</param>
         /// <param name="value">The property value to set.</param>
@@ -103,7 +102,7 @@ namespace Algel.WpfTools.Windows.Controls
         }
 
         /// <summary>
-        /// Gets the value of the WpfToolset.Windows.Controls.GridEx.Position attached property from a given System.Windows.UIElement.
+        /// Gets the value of the <see cref="PositionProperty"/> from a given System.Windows.UIElement.
         /// </summary>
         /// <param name="element">The element from which to read the property value.</param>
         /// <returns>The value of the WpfToolset.Windows.Controls.GridEx.Position attached property.</returns>
@@ -203,84 +202,15 @@ namespace Algel.WpfTools.Windows.Controls
         {
             base.OnPropertyChanged(e);
 
-            if (e.Property == ColumnDefinitionsScriptProperty && !_isColumnDefinitionsScriptPropertyInternalChanging)
+            if (e.Property == ColumnDefinitionsScriptProperty)
                 GenerateColumnDefinitionsFromScript((string)e.NewValue);
-            if (e.Property == RowDefinitionsScriptProperty && !_isRowDefinitionsScriptPropertyInternalChanging)
+            if (e.Property == RowDefinitionsScriptProperty)
                 GenerateRowDefinitionsFromScript((string)e.NewValue);
         }
 
         #endregion
 
         #region Properties
-
-        ///// <summary>
-        ///// Text description of table rows
-        ///// The row descriptions are separated by semicolons, the string parameters are separated by a space
-        ///// If the same row are several rows, you can reduce the entry specifying the beginning of the description, the number of repetitions in square brackets
-        ///// 
-        ///// <example>
-        ///// Examples:
-        ///// <code>
-        ///// RowDefinitionsScript="Auto;" equals &lt;RowDefinition Height="Auto"/&gt;
-        ///// RowDefinitionsScript="Auto;Auto;Auto;" equals RowDefinitionsScript="[3]Auto;"
-        ///// 
-        ///// RowDefinitionsScript="30 GroupName;" equals &lt;RowDefinition Height="30" SharedSizeGroup="GroupName" /&gt;
-        ///// RowDefinitionsScript="20 Auto 50;" equals &lt;RowDefinition MinHeight="20" Height="Auto" MaxHeight=50" /&gt;
-        ///// RowDefinitionsScript="20 Auto 50 GroupName;" equals &lt;RowDefinition MinHeight="20" Height="Auto" MaxHeight=50" SharedSizeGroup="GroupName" /&gt;
-        ///// </code>
-        ///// </example>
-        ///// </summary>
-        //public string RowDefinitionsScript
-        //{
-        //    get
-        //    {
-        //        return GenerateScriptFromRowDefinitions();
-        //    }
-        //    set
-        //    {
-        //        var oldValue = RowDefinitionsScript;
-        //        if (string.Compare(oldValue, value, StringComparison.OrdinalIgnoreCase) != 0)
-        //        {
-        //            GenerateRowDefinitionsFromScript(value);
-        //            RaisePropertyChanged();
-        //        }
-        //    }
-        //}
-
-        ///// <summary>
-        ///// Text description of table columns
-        ///// Descriptions of columns are separated by semicolons, the parameters column are separated by a space
-        ///// If the same column are several columns, you can reduce the entry specifying the beginning of the description, the number of repetitions in square brackets
-        ///// 
-        ///// <example>
-        ///// Examples:
-        ///// <code>
-        ///// ColumnDefinitionsScript="Auto;" equals &lt;ColumnDefinition Width="Auto"/&gt;
-        ///// ColumnDefinitionsScript="Auto;Auto;Auto;" equals ColumnDefinition="[3]Auto;"
-        ///// 
-        ///// ColumnDefinitionsScript="30 GroupName;" equals &lt;ColumnDefinition Width="30" SharedSizeGroup="GroupName" /&gt;
-        ///// ColumnDefinitionsScript="20 Auto 50;" equals &lt;ColumnDefinition MinWidth="20" Width="Auto" MaxWidth=50" /&gt;
-        ///// ColumnDefinitionsScript="20 Auto 50 GroupName;" equals &lt;ColumnDefinition MinWidth="20" Width="Auto" MaxWidth=50" SharedSizeGroup="GroupName" /&gt;
-        ///// </code>
-        ///// </example>
-        ///// </summary>
-        //public string ColumnDefinitionsScript
-        //{
-        //    get
-        //    {
-        //        return GenerateScriptFromColumnDefinitions();
-        //    }
-
-        //    set
-        //    {
-        //        var oldValue = ColumnDefinitionsScript;
-        //        if (string.Compare(oldValue, value, StringComparison.OrdinalIgnoreCase) != 0)
-        //        {
-        //            GenerateColumnDefinitionsFromScript(value);
-        //            RaisePropertyChanged();
-        //        }
-        //    }
-        //}
 
         /// <summary>
         /// Text description of table columns
@@ -301,8 +231,8 @@ namespace Algel.WpfTools.Windows.Controls
         /// </summary>
         public string ColumnDefinitionsScript
         {
-            get { return (string)GetValue(ColumnDefinitionsScriptProperty); }
-            set { SetValue(ColumnDefinitionsScriptProperty, value); }
+            get => (string)GetValue(ColumnDefinitionsScriptProperty);
+            set => SetValue(ColumnDefinitionsScriptProperty, value);
         }
 
         /// <summary>
@@ -324,8 +254,8 @@ namespace Algel.WpfTools.Windows.Controls
         /// </summary>
         public string RowDefinitionsScript
         {
-            get { return (string)GetValue(RowDefinitionsScriptProperty); }
-            set { SetValue(RowDefinitionsScriptProperty, value); }
+            get => (string)GetValue(RowDefinitionsScriptProperty);
+            set => SetValue(RowDefinitionsScriptProperty, value);
         }
 
         #endregion
