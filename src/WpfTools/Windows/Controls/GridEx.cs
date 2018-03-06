@@ -65,7 +65,7 @@ namespace Algel.WpfTools.Windows.Controls
             {
                 var parts = newValue.Split(new[] { ' ', ';' }, StringSplitOptions.RemoveEmptyEntries);
                 if (parts.Length != 2)
-                    throw new InvalidOperationException("Входная строка имеет неверный формат");
+                    throw new InvalidOperationException("The input string was in not correct format");
 
                 var rowTuple = ParseDefinition(parts[0]);
                 var columnTuple = ParseDefinition(parts[1]);
@@ -81,7 +81,7 @@ namespace Algel.WpfTools.Windows.Controls
         {
             var parts = definition.Split(new[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
             if (parts.Length < 1 || parts.Length > 2)
-                throw new FormatException("Входная строка имеет неверный формат");
+                throw new FormatException("The input string was in not correct format");
 
             var index = int.Parse(parts[0]);
             var span = 1;
@@ -298,7 +298,7 @@ namespace Algel.WpfTools.Windows.Controls
                 return string.Join(" ", lst);
             }
 
-            /// <exception cref="ArgumentException">Не удалось распознать параметры.</exception>
+            /// <exception cref="ArgumentException">The input string was in not correct format.</exception>
             public static RowColumnDefinition FromString(string info)
             {
                 var gridLengthConverter = new GridLengthConverter();
@@ -349,13 +349,13 @@ namespace Algel.WpfTools.Windows.Controls
                             }
 
                         default:
-                            throw new ArgumentException("Не удалось распознать параметры.", nameof(info));
+                            throw new ArgumentException("The input string was in not correct format", nameof(info));
                             // ReSharper restore PossibleNullReferenceException
                     }
                 }
                 catch (NullReferenceException e)
                 {
-                    throw new ArgumentException($"Не удалось распознать параметры (info={info}).", nameof(info), e);
+                    throw new ArgumentException($"The input string was in not correct format (info={info}).", nameof(info), e);
                 }
             }
 

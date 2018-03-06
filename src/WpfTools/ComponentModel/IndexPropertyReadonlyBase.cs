@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Windows.Data;
 using JetBrains.Annotations;
 
 namespace Algel.WpfTools.ComponentModel
@@ -11,7 +14,7 @@ namespace Algel.WpfTools.ComponentModel
     /// <typeparam name="T">The type of the value</typeparam>
     /// <typeparam name="TKey">The type of key</typeparam>
     [PublicAPI]
-    public abstract class IndexPropertyReadonlyBase<T, TKey>
+    public abstract class IndexPropertyReadonlyBase<T, TKey> : INotifyPropertyChanged
     {
         #region Fields
 
@@ -25,6 +28,7 @@ namespace Algel.WpfTools.ComponentModel
         protected IndexPropertyReadonlyBase(Func<TKey, T> getter)
         {
             _getter = getter ?? throw new ArgumentNullException(nameof(getter));
+            PropertyChanged += IndexPropertyBase_PropertyChanged;
         }
 
         #endregion
@@ -39,7 +43,40 @@ namespace Algel.WpfTools.ComponentModel
 
         #endregion
 
+        /// <inheritdoc />
+        public event PropertyChangedEventHandler PropertyChanged;
+
         #region Methods
+
+        private void IndexPropertyBase_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(e.PropertyName);
+        }
+
+        /// <summary>
+        /// Raises <see cref="PropertyChanged"/> event.
+        /// </summary>
+        /// <param name="propertyName"></param>
+        [NotifyPropertyChangedInvocator]
+        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            handler?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        /// <summary>
+        /// <see cref="PropertyChanged"/> event handler.
+        /// </summary>
+        /// <param name="propertyName"></param>
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+
+        }
+
+        public void Invalidate()
+        {
+            RaisePropertyChanged(Binding.IndexerName);
+        }
 
         /// <summary>
         /// Try get value by key

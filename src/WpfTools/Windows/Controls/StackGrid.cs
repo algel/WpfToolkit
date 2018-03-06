@@ -36,8 +36,6 @@ namespace Algel.WpfTools.Windows.Controls
     {
         #region Fields
 
-        private bool _isChildrenChanged;
-
         /// <summary>
         /// Sign line feed. I.e. even if the current row is not filled cells, then the following items need to be placed on a new line
         /// </summary>
@@ -51,7 +49,8 @@ namespace Algel.WpfTools.Windows.Controls
         /// <summary>
         /// To put ColumnSpan in such a way that the element is stretched up to the rightmost column
         /// </summary>
-        public static readonly DependencyProperty StretchToLastColumnProperty = DependencyProperty.RegisterAttached("StretchToLastColumn", typeof(bool), typeof(StackGrid), new PropertyMetadata(default(bool)));
+        public static readonly DependencyProperty StretchToLastColumnProperty = DependencyProperty.RegisterAttached("StretchToLastColumn", typeof(bool), typeof(StackGrid), new FrameworkPropertyMetadata(false));
+
 
         /// <summary>
         /// Optimisation for skip already allocated childs
@@ -74,13 +73,15 @@ namespace Algel.WpfTools.Windows.Controls
         /// <inheritdoc />
         protected override Size MeasureOverride(Size constraint)
         {
-            if (_isChildrenChanged)
-            {
-                SetPositionForAllChildren();
-                _isChildrenChanged = false;
-            }
-
+            SetPositionForAllChildren();
             return base.MeasureOverride(constraint);
+        }
+
+        /// <inheritdoc />
+        protected override Size ArrangeOverride(Size arrangeSize)
+        {
+            SetPositionForAllChildren();
+            return base.ArrangeOverride(arrangeSize);
         }
 
         private void SetPositionForAllChildren(bool forced = false)
@@ -88,12 +89,19 @@ namespace Algel.WpfTools.Windows.Controls
             UIElement previous = null;
             foreach (UIElement child in Children)
             {
-                if (!GetDisableAutoAllocation(child) || child is ControlMaxWidthLimiter)
+                if (IsAllowPositioning(child))
                 {
                     SetPositionForElement(child, previous, forced);
                     previous = child;
                 }
             }
+        }
+
+        private static bool IsAllowPositioning(UIElement element)
+        {
+            if (GetDisableAutoAllocation(element) || element is ControlMaxWidthLimiter)
+                return false;
+            return true;
         }
 
         private void SetPositionForElement(UIElement element, UIElement prevousElement, bool forced)
@@ -232,13 +240,6 @@ namespace Algel.WpfTools.Windows.Controls
                 SetPositionForAllChildren(true);
         }
 
-        /// <inheritdoc />
-        protected override void OnVisualChildrenChanged(DependencyObject visualAdded, DependencyObject visualRemoved)
-        {
-            _isChildrenChanged = true;
-            base.OnVisualChildrenChanged(visualAdded, visualRemoved);
-        }
-
         #endregion
 
         /// <summary>
@@ -251,4 +252,61 @@ namespace Algel.WpfTools.Windows.Controls
             set => SetValue(AutogenerateRowsProperty, value);
         }
     }
+
+
+    //public class VanishingPointPanel : Panel
+    //{
+    //    public static readonly DependencyProperty ZFactorProperty = DependencyProperty.Register(nameof(ZFactor), typeof(double), typeof(VanishingPointPanel), new PropertyMetadata(default(double)));
+
+    //    public double ZFactor
+    //    {
+    //        get => (double)GetValue(ZFactorProperty);
+    //        set => SetValue(ZFactorProperty, value);
+    //    }
+
+    //    public static readonly DependencyProperty ItemHeightProperty = DependencyProperty.Register(nameof(ItemHeight), typeof(double), typeof(VanishingPointPanel), new PropertyMetadata(default(double)));
+
+    //    public double ItemHeight
+    //    {
+    //        get => (double)GetValue(ItemHeightProperty);
+    //        set => SetValue(ItemHeightProperty, value);
+    //    }
+
+    //    private Rect CalculateRect(Size panelSize, int index)
+    //    {
+    //        var zFactor = Math.Pow(ZFactor, index);
+    //        var itemSize = new Size(panelSize.Width * zFactor, ItemHeight * zFactor);
+    //        var left = (panelSize.Width - itemSize.Width) * 0.5;
+    //        var top = panelSize.Height;
+    //        for (var i = 0; i <= index; i++)
+    //        {
+    //            top -= Math.Pow(ZFactor, i) * ItemHeight;
+    //        }
+
+    //        var rect = new Rect(itemSize) { Location = new Point(left, top) };
+    //        return rect;
+    //    }
+
+    //    protected override Size MeasureOverride(Size availableSize)
+    //    {
+    //        foreach (UIElement child in InternalChildren)
+    //        {
+    //            var childSize = new Size(availableSize.Width, ItemHeight);
+    //            child.Measure(childSize);
+    //        }
+    //        return new Size(availableSize.Width, ItemHeight * InternalChildren.Count);
+    //    }
+
+    //    protected override Size ArrangeOverride(Size finalSize)
+    //    {
+    //        var currentIndex = 0;
+    //        for (var index = InternalChildren.Count - 1; index >= 0; index--)
+    //        {
+    //            var rect = CalculateRect(finalSize, currentIndex);
+    //            InternalChildren[index].Arrange(rect);
+    //            currentIndex++;
+    //        }
+    //        return finalSize;
+    //    }
+    //}
 }

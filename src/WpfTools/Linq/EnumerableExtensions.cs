@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Algel.WpfTools.Linq
@@ -17,6 +18,22 @@ namespace Algel.WpfTools.Linq
                 return;
             foreach (var obj in sequence)
                 action(obj);
+        }
+
+        public static IEnumerable AsReversedEnumerable(this IList source)
+        {
+            for (var i = source.Count - 1; i >= 0; i--)
+            {
+                yield return source[i];
+            }
+        }
+
+        public static IEnumerable AsReversedEnumerable(this IList source, int startIndex, int count)
+        {
+            for (var i = startIndex + count - 1; i >= startIndex; i--)
+            {
+                yield return source[i];
+            }
         }
     }
 }
