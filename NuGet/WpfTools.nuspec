@@ -3,7 +3,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>Algel.WpfTools</id>
-    <version>2018.3.6</version>
+    <version>2018.3.30</version>
     <title>Algel.WpfTools</title>
     <authors>Alexey Pozdnyakov</authors>
     <owners>Alexey Pozdnyakov (Algel)</owners>

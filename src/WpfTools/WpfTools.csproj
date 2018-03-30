@@ -80,6 +80,8 @@
     <Compile Include="Windows\Controls\NumericEditor.cs" />
     <Compile Include="Windows\Controls\RangeBase.cs" />
     <Compile Include="Windows\Controls\StackGrid.cs" />
+    <Compile Include="Windows\Controls\TextBlockService.cs" />
+    <Compile Include="Windows\Controls\TextBoxService.cs" />
     <Compile Include="Windows\Converters\HorizontalContentAlignmentToTextAlignmentConverter.cs" />
     <Compile Include="Windows\Data\BindingDecoratorBase.cs" />
     <Compile Include="Windows\Data\CollectionView.cs" />

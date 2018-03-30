@@ -12,7 +12,7 @@ using System.Windows.Markup;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Alexey Pozdnyakov (Algel)")]
 [assembly: AssemblyProduct("WpfTools")]
-[assembly: AssemblyCopyright("Copyright © Alexey Pozdnyakov 2017")]
+[assembly: AssemblyCopyright("Copyright © Alexey Pozdnyakov 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -49,5 +49,5 @@ using System.Windows.Markup;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2018.3.6.0529")]
-[assembly: AssemblyFileVersion("2018.3.6.0529")]
+[assembly: AssemblyVersion("2018.3.30.0558")]
+[assembly: AssemblyFileVersion("2018.3.30.0558")]
