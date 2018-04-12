@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E3C59C18
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfTools.Tests", "Tests\WpfTools.Tests\WpfTools.Tests.csproj", "{31F0A537-EBC7-40C6-B96F-C31435606A09}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfTools.Net4", "WpfTools.Net4\WpfTools.Net4.csproj", "{F881A2B3-B6E1-4AF0-8ADC-180FFF6B181A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{31F0A537-EBC7-40C6-B96F-C31435606A09}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31F0A537-EBC7-40C6-B96F-C31435606A09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31F0A537-EBC7-40C6-B96F-C31435606A09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F881A2B3-B6E1-4AF0-8ADC-180FFF6B181A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F881A2B3-B6E1-4AF0-8ADC-180FFF6B181A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F881A2B3-B6E1-4AF0-8ADC-180FFF6B181A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F881A2B3-B6E1-4AF0-8ADC-180FFF6B181A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

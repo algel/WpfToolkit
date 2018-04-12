@@ -126,7 +126,7 @@ namespace Algel.WpfTools.Windows.Input
                 try
                 {
                     task = ExecuteAsync(arg);
-                    await task.ConfigureAwait(true);
+                    await task;//.ConfigureAwait(true);
                 }
                 catch (Exception e)
                 {

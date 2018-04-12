@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F881A2B3-B6E1-4AF0-8ADC-180FFF6B181A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Algel.WpfTools</RootNamespace>
+    <AssemblyName>Algel.WpfTools</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Build\WpfTools\Release\net40\</OutputPath>
+    <DefineConstants>TRACE;NET40</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\Build\WpfTools\Release\net40\Algel.WpfTools.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="JetBrains.Annotations">
+      <HintPath>..\packages\JetBrains.Annotations.11.1.0\lib\net20\JetBrains.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop, Version=1.0.168.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Runtime, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\WpfTools\Collections\CollectionChangingEventArgs.cs">
+      <Link>Collections\CollectionChangingEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Collections\ObservableCollectionEx.cs">
+      <Link>Collections\ObservableCollectionEx.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Collections\WeakReferenceList.cs">
+      <Link>Collections\WeakReferenceList.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\ComponentModel\Helpers\ObjectCloneHelperBase.cs">
+      <Link>ComponentModel\Helpers\ObjectCloneHelperBase.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\ComponentModel\IndexPropertyBase.cs">
+      <Link>ComponentModel\IndexPropertyBase.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\ComponentModel\IndexPropertyOfTOfTindex.cs">
+      <Link>ComponentModel\IndexPropertyOfTOfTindex.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\ComponentModel\IndexPropertyOfTOfTindex1OfTindex2.cs">
+      <Link>ComponentModel\IndexPropertyOfTOfTindex1OfTindex2.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\ComponentModel\IndexPropertyOfTOfTindex1OfTindex2OfTIndex3.cs">
+      <Link>ComponentModel\IndexPropertyOfTOfTindex1OfTindex2OfTIndex3.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\ComponentModel\IndexPropertyReadonlyBase.cs">
+      <Link>ComponentModel\IndexPropertyReadonlyBase.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\ComponentModel\IndexReadonlyPropertyOfTOfTindex.cs">
+      <Link>ComponentModel\IndexReadonlyPropertyOfTOfTindex.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\ComponentModel\IndexReadonlyPropertyOfTOfTindex1OfTindex2.cs">
+      <Link>ComponentModel\IndexReadonlyPropertyOfTOfTindex1OfTindex2.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\ComponentModel\IndexReadonlyPropertyOfTOfTindex1OfTindex2OfTindex3.cs">
+      <Link>ComponentModel\IndexReadonlyPropertyOfTOfTindex1OfTindex2OfTindex3.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Events\CancelDataEventArgs.cs">
+      <Link>Events\CancelDataEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Events\DataEventArgs.cs">
+      <Link>Events\DataEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Events\PropertyValueChangedEventArgs.cs">
+      <Link>Events\PropertyValueChangedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Extensions\ServiceProviderExtensions.cs">
+      <Link>Extensions\ServiceProviderExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Linq\CollectionExtensions.cs">
+      <Link>Linq\CollectionExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Linq\CollectionViewExtensions.cs">
+      <Link>Linq\CollectionViewExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Linq\EnumerableExtensions.cs">
+      <Link>Linq\EnumerableExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\Controls\ControlMaxWidthLimiter.cs">
+      <Link>Windows\Controls\ControlMaxWidthLimiter.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\Controls\EmptyRow.cs">
+      <Link>Windows\Controls\EmptyRow.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\Controls\GridEx.cs">
+      <Link>Windows\Controls\GridEx.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\Controls\NumericEditor.cs">
+      <Link>Windows\Controls\NumericEditor.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\Controls\RangeBase.cs">
+      <Link>Windows\Controls\RangeBase.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\Controls\StackGrid.cs">
+      <Link>Windows\Controls\StackGrid.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\Controls\TextBlockService.cs">
+      <Link>Windows\Controls\TextBlockService.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\Controls\TextBoxService.cs">
+      <Link>Windows\Controls\TextBoxService.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\Converters\HorizontalContentAlignmentToTextAlignmentConverter.cs">
+      <Link>Windows\Converters\HorizontalContentAlignmentToTextAlignmentConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\Data\BindingDecoratorBase.cs">
+      <Link>Windows\Data\BindingDecoratorBase.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\Data\CollectionView.cs">
+      <Link>Windows\Data\CollectionView.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\Data\IndexedEnumerable.cs">
+      <Link>Windows\Data\IndexedEnumerable.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\Data\RootDataContextBinding.cs">
+      <Link>Windows\Data\RootDataContextBinding.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\DesignerHelper.cs">
+      <Link>Windows\DesignerHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\Input\CommandExecuteEventArgs.cs">
+      <Link>Windows\Input\CommandExecuteEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\Input\CommandExecutingEventArgs.cs">
+      <Link>Windows\Input\CommandExecutingEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\Input\IViewModelCommand.cs">
+      <Link>Windows\Input\IViewModelCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\Input\ViewModelCommand.cs">
+      <Link>Windows\Input\ViewModelCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\Input\ViewModelCommandManager.cs">
+      <Link>Windows\Input\ViewModelCommandManager.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\Input\ViewModelCommandManagerExtensions.cs">
+      <Link>Windows\Input\ViewModelCommandManagerExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\Markup\BoolExtension.cs">
+      <Link>Windows\Markup\BoolExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\Markup\ByteExtension.cs">
+      <Link>Windows\Markup\ByteExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\Markup\Int16Extension.cs">
+      <Link>Windows\Markup\Int16Extension.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\Markup\Int32Extension.cs">
+      <Link>Windows\Markup\Int32Extension.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\Markup\Int64Extension.cs">
+      <Link>Windows\Markup\Int64Extension.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\Markup\MergedStylesExtension.cs">
+      <Link>Windows\Markup\MergedStylesExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\WpfTools\Windows\Markup\PrimitiveTypeExtension.cs">
+      <Link>Windows\Markup\PrimitiveTypeExtension.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="..\WpfTools\Themes\generic.xaml">
+      <Link>Themes\generic.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="..\WpfTools\Themes\NumericEditor.xaml">
+      <Link>Themes\NumericEditor.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
+</Project>

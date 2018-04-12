@@ -68,10 +68,13 @@ namespace Algel.WpfTools.Windows.Data
             // no need to track changes, no need to hook notification
             if (List == null)
             {
-                INotifyCollectionChanged icc = collection as INotifyCollectionChanged;
-                if (icc != null)
+                if (collection is INotifyCollectionChanged icc)
                 {
+#if NET45
                     CollectionChangedEventManager.AddHandler(icc, OnCollectionChanged);
+#elif NET40
+                    CollectionChangedEventManager.AddListener(icc, this);
+#endif
                 }
             }
         }
@@ -353,7 +356,11 @@ namespace Algel.WpfTools.Windows.Data
             {
                 if (Enumerable is INotifyCollectionChanged icc)
                 {
+#if NET45
                     CollectionChangedEventManager.RemoveHandler(icc, OnCollectionChanged);
+#elif NET40
+                    CollectionChangedEventManager.RemoveListener(icc, this);
+#endif
                 }
             }
 
@@ -688,6 +695,12 @@ namespace Algel.WpfTools.Windows.Data
         /// </summary>
         protected virtual bool ReceiveWeakEvent(Type managerType, object sender, EventArgs e)
         {
+            if (managerType == typeof(CollectionChangedEventManager))
+            {
+                InvalidateEnumerator();
+                return true;
+            }
+
             return false;   // this method is no longer used (but must remain, for compat)
         }
 
