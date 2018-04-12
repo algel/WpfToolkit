@@ -1,4 +1,4 @@
 Welcome to Algel.WpfTools! 
-Algel.WpfTools is a small auxiliary set of components for developing WPF applications.
+The Algel.WpfTools library is a set of components used by me when developing desktop WPF applications.
 
 Please read the documentation at https://github.com/algel/WpfTools/wiki
