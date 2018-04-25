@@ -3,14 +3,14 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>Algel.WpfTools</id>
-    <version>2018.4.12</version>
+    <version>2018.4.25</version>
     <title>Algel.WpfTools</title>
     <authors>Alexey Pozdnyakov</authors>
     <owners>Alexey Pozdnyakov (Algel)</owners>
     <licenseUrl>https://github.com/algel/WpfTools/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/algel/WpfTools</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>An auxiliary set of components for developing WPF applications</description>
+    <description>The Algel.WpfTools library is a set of components used by me when developing desktop WPF applications</description>
     <copyright>Copyright 2018 (c) Alexey Pozdnyakov.</copyright>
     <tags>WpfTools Wpf StackGrid ViewModelCommand</tags>
 

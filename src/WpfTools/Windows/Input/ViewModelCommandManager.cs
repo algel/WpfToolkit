@@ -21,8 +21,7 @@ namespace Algel.WpfTools.Windows.Input
         {
             get
             {
-                CommandEntry entry;
-                if (_commandsCollection.TryGetValue(key, out entry))
+                if (_commandsCollection.TryGetValue(key, out var entry))
                     return entry.Command;
                 return null;
             }

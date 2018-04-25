@@ -1,7 +1,7 @@
 ﻿namespace Algel.WpfTools.Windows.Input
 {
     /// <summary>
-    /// Содержит данные для собития начала выполнения команды
+    /// Содержит данные для события начала выполнения команды
     /// </summary>
     public class CommandExecutingEventArgs : CommandExecuteEventArgs
     {
