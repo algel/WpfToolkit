@@ -73,6 +73,7 @@
     <Compile Include="Linq\CollectionExtensions.cs" />
     <Compile Include="Linq\CollectionViewExtensions.cs" />
     <Compile Include="Linq\EnumerableExtensions.cs" />
+    <Compile Include="NotifyPropertyChangedBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Windows\Controls\ControlMaxWidthLimiter.cs" />
     <Compile Include="Windows\Controls\GridEx.cs" />

@@ -2,7 +2,7 @@
 The Algel.WpfTools library is a set of components used by me when developing desktop WPF applications
 
 ###### It can be installed through [Nuget](https://www.nuget.org/packages/Algel.WpfTools): 
-`PM> Install-Package Algel.WpfTools -Version 2018.4.12`
+`PM> Install-Package Algel.WpfTools -Version 2018.5.10`
 
 Main components:
 

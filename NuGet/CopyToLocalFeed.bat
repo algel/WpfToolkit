@@ -1,1 +1,1 @@
-nuget add Algel.WpfTools.2018.4.12.nupkg -source d:\\Src\NuGetRepo
+nuget add Algel.WpfTools.2018.5.10.nupkg -source d:\\Src\NuGetRepo

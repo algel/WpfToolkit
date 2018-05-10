@@ -127,6 +127,9 @@
     <Compile Include="..\WpfTools\Linq\EnumerableExtensions.cs">
       <Link>Linq\EnumerableExtensions.cs</Link>
     </Compile>
+    <Compile Include="..\WpfTools\NotifyPropertyChangedBase.cs">
+      <Link>NotifyPropertyChangedBase.cs</Link>
+    </Compile>
     <Compile Include="..\WpfTools\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
